@@ -25,7 +25,7 @@ class IndexView(View):
                 """
                 This URL is only used when you have built the production
                 version of the app. Visit http://localhost:3000/ instead, or
-                run `npm run build` to test the production version.
+                run `npm run build` to test the production version
                 """,
                 status=501,
             )
