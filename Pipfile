@@ -14,4 +14,4 @@ psycopg2-binary = "~=2.9.5"
 autopep8 = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.9"

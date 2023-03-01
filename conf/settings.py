@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 
 if os.environ.get('DATABASE_URL'):
     DATABASES = {
-        'default': dj_database_url.config(fefault=os.environ['DATABASE_URL'])
+        'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
 else:
     DATABASES = {
