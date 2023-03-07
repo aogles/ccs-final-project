@@ -127,24 +127,6 @@ function APITest() {
           <Marker position={destination} /> */}
         </GoogleMap>
       </LoadScript>
-      <Form.Group className="mb-3">
-        <Form.Label>Origin</Form.Label>
-
-        <Form.Control type="text" placeholder="Origin" />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Destination</Form.Label>
-
-        <Form.Control type="text" placeholder="Destination" />
-      </Form.Group>
-      <Card style={{ width: "18rem" }}>
-        <ListGroup variant="flush">
-          <ListGroup.Item>Distance: {distance}</ListGroup.Item>
-          <ListGroup.Item>Duration:{duration} </ListGroup.Item>
-          <ListGroup.Item>Directions:{directions}</ListGroup.Item>
-        </ListGroup>
-      </Card>
-      <Button variant="secondary">Start Navigation</Button>{" "}
     </>
   );
 }

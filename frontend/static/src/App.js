@@ -1,12 +1,12 @@
 import "./App.css";
-import APITest from "./APITestFile/APITest";
+import NavigationMap from "./Navigation/maps";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <div>
-          <APITest />
+          <NavigationMap />
         </div>
       </header>
     </div>
