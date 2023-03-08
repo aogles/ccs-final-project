@@ -60,6 +60,6 @@ class AdminInformationListAPIView(generics.ListCreateAPIView):
 #     serializer_class = InformationSerializer
 #     permission_classes = (IsAdminOrReadOnly,)
 
-# class NavigationListAPIView(generics.ListAPIView):
-#     serializer_class = InformationSerializer
-#     permission_classes = IsAuthOrReadOnly
+class NavigationListAPIView(generics.ListAPIView):
+    serializer_class = NavigationSerializer
+    permission_classes = IsAuthOrAdmin
