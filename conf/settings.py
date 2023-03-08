@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     # local
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
+    'convoys.apps.ConvoysConfig',
+    'api.apps.ApiConfig',
 
     # 3rd party
     'rest_framework',
