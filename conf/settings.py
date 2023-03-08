@@ -161,6 +161,13 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "frontend/static/build/static"),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+# MEDIA_ROOT is the path to the root directory where the files are getting stored
+# MEDIA_URL is the URL that will serve the media files
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # Customizing authentication in Django
 
 
@@ -173,4 +180,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # https://dj-rest-auth.readthedocs.io/en/latest/installation.html#registration-optional
 SITE_ID = 1
 
-EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
