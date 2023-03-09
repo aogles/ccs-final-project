@@ -44,7 +44,7 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 #     permission_classes = (IsAdminOrReadOnly,)
 
 
-class InformationListAPIView(generics.ListAPIView):
+class InformationListAPIView(generics.ListCreateAPIView):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
     permission_classes = (IsAdminOrReadOnly,)
@@ -54,7 +54,7 @@ class InformationListAPIView(generics.ListAPIView):
     #     return Information.objects.filter(category=category)
 
 
-class AdminInformationListAPIView(generics.ListCreateAPIView):
+class AdminInformationListAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
     permission_classes = (IsAdminOrReadOnly,)
