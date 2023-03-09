@@ -45,14 +45,23 @@ class MessageDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
 
 class InformationListAPIView(generics.ListAPIView):
+    queryset = Information.objects.all()
     serializer_class = InformationSerializer
-    permission_classes = IsAdminOrReadOnly
+    permission_classes = (IsAdminOrReadOnly,)
+
+    # def get_queryset(self):
+    #     category = self.request.query_params.get('category')
+    #     return Information.objects.filter(category=category)
 
 
 class AdminInformationListAPIView(generics.ListCreateAPIView):
     queryset = Information.objects.all()
     serializer_class = InformationSerializer
     permission_classes = (IsAdminOrReadOnly,)
+
+    def get_queryset(self):
+        category = self.request.query_params.get('category')
+        return Information.objects.filter(category=category)
 
 
 # class AdminDetailInformationListAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -62,4 +71,4 @@ class AdminInformationListAPIView(generics.ListCreateAPIView):
 
 class NavigationListAPIView(generics.ListAPIView):
     serializer_class = NavigationSerializer
-    permission_classes = IsAuthOrAdmin
+    permission_classes = (IsAuthOrAdmin,)

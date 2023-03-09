@@ -19,8 +19,8 @@ urlpatterns = [
     # This endpoint is used for creating a new channel or retrieving a list of channels.
     # The HTTP methods that are allowed on this endpoint are GET and POST.
     path('', ChannelListAPIView.as_view()),
-    path('', InformationListAPIView.as_view()),
-    path('<int:pk>/', AdminInformationListAPIView.as_view()),
+    path('notes/', InformationListAPIView.as_view()),
+    path('notes/<int:pk>/', AdminInformationListAPIView.as_view()),
 
 
 

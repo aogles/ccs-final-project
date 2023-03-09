@@ -10,11 +10,30 @@ const AuthenticatedHeader = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <NavLink to="/login">Login</NavLink>
-          <NavLink to="/registration">Register</NavLink>
+          <Button>
+            <NavLink to="/login">Login</NavLink>
+          </Button>
+
+          <Button>
+            <NavLink to="/registration">Register</NavLink>
+          </Button>
+
           {/* <NavLink to="/InformationForm">Create your own Article</NavLink> */}
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="nav">Navigation</NavLink>
+          <Button>
+            <NavLink to="/">Home</NavLink>
+          </Button>
+
+          <Button>
+            <NavLink to="nav">Navigation</NavLink>
+          </Button>
+
+          <Button>
+            <NavLink to="info">Convoy Information</NavLink>
+          </Button>
+
+          <Button>
+            <NavLink to="comms">Convoy Chat</NavLink>
+          </Button>
 
           <Button onClick={logout}>Logout</Button>
         </Nav>
