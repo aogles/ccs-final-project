@@ -6,6 +6,8 @@ import Cookies from "js-cookie";
 function Note({ id, image, title, body, ...props }) {
   const [isEditing, setEditing] = useState(false);
   const [newBody, setNewBody] = useState(body);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newImage, setNewImage] = useState(image);
 
   // Dont send the image url back to the database. Only send an image if you select a new image!!!
 
@@ -13,6 +15,8 @@ function Note({ id, image, title, body, ...props }) {
     e.preventDefault();
     const updatedNote = {
       body: newBody,
+      title: newTitle,
+      image: newImage,
     };
 
     props.editNote(id, updatedNote);
@@ -27,6 +31,19 @@ function Note({ id, image, title, body, ...props }) {
         type="text"
         value={newBody}
         onChange={(e) => setNewBody(e.target.value)}
+      />
+      <input
+        type="file"
+        accept="image/png, image/jpeg"
+        className="image"
+        onChange={(e) => setNewImage(e.target.files[0])}
+      />
+      <input
+        id={id}
+        className="todo-text"
+        type="text"
+        value={newTitle}
+        onChange={(e) => setNewTitle(e.target.value)}
       />
       <button type="submit">Save Changes</button>
       <button type="button" onClick={() => setEditing(false)}>
@@ -62,7 +79,6 @@ function Note({ id, image, title, body, ...props }) {
     </div>
   );
 
-  console.log(body);
   return <>{isEditing ? editHTML : previewHTML}</>;
 }
 
@@ -124,28 +140,48 @@ function NoteList({ Notes }) {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
+  // Create a new FormData object and add the updated note's body to it
   const editNote = async (id, updatedNote) => {
-    console.log(updatedNote);
-    const response = await fetch(`/api_v1/notes/${id}/`, {
+    const formData = new FormData();
+    formData.append("body", updatedNote.body);
+    formData.append("title", updatedNote.title);
+    formData.append("image", updatedNote.image);
+    // Use the HTTP PATCH method to update the note
+    const options = {
       method: "PATCH",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      body: updatedNote,
-    });
+      // Set the body of the request to the FormData object created earlier
+      body: formData,
+      title: formData,
+      image: formData,
+    };
+    // Send the fetch request to the API endpoint for updating a note
+    const response = await fetch(`/api_v1/notes/${id}/`, options);
 
     if (!response.ok) {
       throw new Error("Failed to edit note");
     }
+    // Copy the current list of notes and add the updated note to it
+    const data = await response.json();
+    //const updatedNotes = [...notes, data];
+    // Find the index of the note with the specified id in the updated list of notes
+    //const index = updatedNotes.findIndex((note) => note.id === id);
+    //Replace the old note with the updated note at the specified index
+    //updatedNotes[index] = data;
+    // Set the state of the notes to the updated list of notes
 
     const updatedNotes = [...notes];
+
     const index = updatedNotes.findIndex((note) => note.id === id);
-    updatedNotes[index] = { ...updatedNotes[index], ...updatedNote }; // refactor to use the response from the server
-    setNotes(updatedNotes);
+    updatedNotes[index] = data;
+
+    setNotes([...updatedNotes]);
   };
 
   if (notes === null) {
-    return <div>I am loading ...</div>;
+    return <div>Fetching data(add spinner) ...</div>;
   }
 
   const notesHTML = notes.map((note) => (
