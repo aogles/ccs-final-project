@@ -140,7 +140,7 @@ function NavigationMap() {
         <GooglePlacesAutocomplete
           onChange={handleInput}
           //value={setValue}
-          selectProps={{
+          selectprops={{
             value,
             onChange: setValue,
           }}
@@ -151,7 +151,7 @@ function NavigationMap() {
         <GooglePlacesAutocomplete
           onChange={handleInput}
           //value={setValue}
-          selectProps={{
+          selectprops={{
             value,
           }}
         />
