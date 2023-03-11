@@ -123,13 +123,14 @@ function NoteList({ Notes }) {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("body", body);
-    formData.append("selectedcategory", selectedCategory);
 
     const options = {
       method: "POST",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
+      image: formData,
+      title: formData,
       body: formData,
     };
     const response = await fetch("/api_v1/notes/", options);
@@ -234,7 +235,6 @@ function NoteList({ Notes }) {
           className="body"
           placeholder="Enter your message here"
         />
-
         <div className="mt-2 pt-2 border-top">
           <button type="submit">Add Convoy Notes</button>
         </div>
