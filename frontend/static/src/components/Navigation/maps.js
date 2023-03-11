@@ -169,11 +169,19 @@ function NavigationMap() {
         distance={distance}
         onLoad={onLoad}
       >
-        <MarkerF position={center} />
-
-        {/* Child components, such as markers, info windows, etc.
-          <DirectionsRenderer directions={this.state.directions} />
-          <Marker position={destination} /> */}
+        {center && <MarkerF position={center} />}
+        {directions && (
+          <DirectionsRenderer
+            directions={directions}
+            options={{
+              polylineOptions: {
+                zIndex: 50,
+                strokeColor: "#1976D2",
+                strokeWeight: 5,
+              },
+            }}
+          />
+        )}
       </GoogleMap>
       <Form.Group className="mb-3"></Form.Group>
       <Form.Group className="mb-3"></Form.Group>

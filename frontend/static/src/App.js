@@ -2,7 +2,7 @@ import "./App.css";
 import NavigationMap from "./components/Navigation/maps";
 import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import ConvoyInfo from "./components/Information/checklist";
+import ConvoyInfo from "./components/Information/convoy.js";
 import ConvoyChat from "./components/Communications/chatapp";
 import LoginForm from "./components/Auth/Login";
 import RegistrationForm from "./components/Auth/Registration";
@@ -11,6 +11,7 @@ import { AuthContext } from "./context/AuthContext";
 import AuthenticatedHeader from "./components/Header/AuthenticatedHeader";
 import UnauthenticatedHeader from "./components/Header/UnauthenticatedHeader";
 import Homepage from "./components/Home/home";
+// import ConvoyInfo from "./components/Information/convoy";
 
 function App() {
   const { isAuth } = useContext(AuthContext);

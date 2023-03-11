@@ -3,11 +3,13 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import Dropdown from "react-bootstrap/Dropdown";
-import Button from "react-bootstrap/Button";
 
-function Note({ id, image, title, body, ...props }) {
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+
+function Note({ id, image, title, message, ...props }) {
   const [isEditing, setEditing] = useState(false);
-  const [newBody, setNewBody] = useState(body);
+  const [newMessage, setNewMessage] = useState(message);
   const [newTitle, setNewTitle] = useState(title);
   const [newImage, setNewImage] = useState(image);
 
@@ -16,7 +18,7 @@ function Note({ id, image, title, body, ...props }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedNote = {
-      body: newBody,
+      message: newMessage,
       title: newTitle,
       image: newImage,
     };
@@ -26,32 +28,43 @@ function Note({ id, image, title, body, ...props }) {
   };
 
   const editHTML = (
-    <form className="stack-small" onSubmit={handleSubmit}>
-      <input
-        id={id}
-        className="todo-text"
-        type="text"
-        value={newBody}
-        onChange={(e) => setNewBody(e.target.value)}
-      />
-      <input
-        type="file"
-        accept="image/png, image/jpeg"
-        className="image"
-        onChange={(e) => setNewImage(e.target.files[0])}
-      />
-      <input
-        id={id}
-        className="todo-text"
-        type="text"
-        value={newTitle}
-        onChange={(e) => setNewTitle(e.target.value)}
-      />
-      <button type="submit">Save Changes</button>
-      <button type="button" onClick={() => setEditing(false)}>
-        Cancel
-      </button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Enter new note </Form.Label>
+        <Form.Control
+          id={id}
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Enter new image </Form.Label>
+        <input
+          type="file"
+          accept="image/png, image/jpeg"
+          className="image"
+          onChange={(e) => setNewImage(e.target.files[0])}
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Enter new caption </Form.Label>
+        <Form.Control
+          id={id}
+          className="todo-text"
+          type="text"
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+        />
+      </Form.Group>
+
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+      <Button type="button" onClick={() => setEditing(false)}>
+        Cancel{" "}
+      </Button>
+    </Form>
   );
 
   const previewHTML = (
@@ -59,7 +72,7 @@ function Note({ id, image, title, body, ...props }) {
       <img className="card-img-top" src={image} alt="Card image cap" />
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
-        <p className="card-text">{body}</p>
+        <p className="card-text">{message}</p>
       </div>
 
       <div className="card-body">
@@ -88,7 +101,8 @@ function NoteList({ Notes }) {
   const [notes, setNotes] = useState(null);
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [message, setMessage] = useState("");
+  const [category, setCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("safety");
 
   const getNotes = async () => {
@@ -122,15 +136,14 @@ function NoteList({ Notes }) {
     const formData = new FormData();
     formData.append("image", image);
     formData.append("title", title);
-    formData.append("body", body);
+    formData.append("category", category);
+    formData.append("message", message);
 
     const options = {
       method: "POST",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      image: formData,
-      title: formData,
       body: formData,
     };
     const response = await fetch("/api_v1/notes/", options);
@@ -139,9 +152,10 @@ function NoteList({ Notes }) {
     }
     const data = await response.json();
     setNotes([...notes, data]);
-    setBody("");
+    setMessage("");
     setImage("");
     setTitle("");
+    setCategory("");
   };
 
   const deleteNote = async (id) => {
@@ -160,7 +174,7 @@ function NoteList({ Notes }) {
   // Create a new FormData object and add the updated note's body to it
   const editNote = async (id, updatedNote) => {
     const formData = new FormData();
-    formData.append("body", updatedNote.body);
+    formData.append("message", updatedNote.message);
     formData.append("title", updatedNote.title);
     formData.append("image", updatedNote.image);
     // Use the HTTP PATCH method to update the note
@@ -171,8 +185,6 @@ function NoteList({ Notes }) {
       },
       // Set the body of the request to the FormData object created earlier
       body: formData,
-      title: formData,
-      image: formData,
     };
     // Send the fetch request to the API endpoint for updating a note
     const response = await fetch(`/api_v1/notes/${id}/`, options);
@@ -209,7 +221,7 @@ function NoteList({ Notes }) {
   return (
     <>
       {/* {note.role === "admin" && ( */}
-      <form
+      <Form
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
@@ -229,16 +241,23 @@ function NoteList({ Notes }) {
           placeholder="Enter Note Caption Here"
         />
         <input
-          onChange={(e) => setBody(e.target.value)}
-          value={body}
+          onChange={(e) => setMessage(e.target.value)}
+          value={message}
           type="text"
           className="body"
           placeholder="Enter your message here"
         />
+        <input
+          onChange={(e) => setCategory(e.target.value)}
+          value={category}
+          type="text"
+          className="category"
+          placeholder="Enter the  note category here"
+        />
         <div className="mt-2 pt-2 border-top">
-          <button type="submit">Add Convoy Notes</button>
+          <Button type="submit">Add Convoy Notes</Button>
         </div>
-      </form>
+      </Form>
       {/* )} */}
       {buttons}
       {notesHTML}
