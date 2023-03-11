@@ -2,6 +2,8 @@ import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import Dropdown from "react-bootstrap/Dropdown";
+import Button from "react-bootstrap/Button";
 
 function Note({ id, image, title, body, ...props }) {
   const [isEditing, setEditing] = useState(false);
@@ -87,20 +89,33 @@ function NoteList({ Notes }) {
   const [image, setImage] = useState("");
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("safety");
 
+  const getNotes = async () => {
+    const response = await fetch(`/api_v1/notes/?category=${selectedCategory}`);
+
+    if (!response.ok) {
+      throw new Error("Network response was not OK");
+    }
+    console.log(notes);
+    const data = await response.json();
+    setNotes(data);
+  };
+  // use effect will only update to state when dependencies are called within it
   useEffect(() => {
-    const getNotes = async () => {
-      const response = await fetch("/api_v1/notes/");
-
-      if (!response.ok) {
-        throw new Error("Network response was not OK");
-      }
-
-      const data = await response.json();
-      setNotes(data);
-    };
+    console.log(selectedCategory);
     getNotes();
-  }, []);
+  }, [selectedCategory]);
+
+  const categories = ["safety", "vehicle-info", "convoy-checklist"];
+
+  const buttons = categories.map((category) => {
+    return (
+      <button id="button" onClick={() => setSelectedCategory(category)}>
+        {category}{" "}
+      </button>
+    );
+  });
 
   const addNote = async (event) => {
     event.preventDefault();
@@ -108,6 +123,7 @@ function NoteList({ Notes }) {
     formData.append("image", image);
     formData.append("title", title);
     formData.append("body", body);
+    formData.append("selectedcategory", selectedCategory);
 
     const options = {
       method: "POST",
@@ -188,8 +204,10 @@ function NoteList({ Notes }) {
     <Note key={note.id} {...note} deleteNote={deleteNote} editNote={editNote} />
   ));
 
+  console.log(notes);
   return (
     <>
+      {/* {note.role === "admin" && ( */}
       <form
         role="alert"
         aria-live="assertive"
@@ -221,6 +239,8 @@ function NoteList({ Notes }) {
           <button type="submit">Add Convoy Notes</button>
         </div>
       </form>
+      {/* )} */}
+      {buttons}
       {notesHTML}
     </>
   );
