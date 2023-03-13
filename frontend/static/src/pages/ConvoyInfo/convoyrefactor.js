@@ -1,3 +1,44 @@
+// import React, { useState } from "react";
+
+// function AutoCompleteInput() {
+//   const [inputValue, setInputValue] = useState("");
+//   const [suggestions, setSuggestions] = useState([]);
+
+//   const handleInputChange = (event) => {
+//     const value = event.target.value;
+//     setInputValue(value);
+//     if (value.length > 0) {
+//       setSuggestions(["Option 1", "Option 2", "Option 3"].filter(option =>
+//         option.toLowerCase().includes(value.toLowerCase())
+//       ));
+//     } else {
+//       setSuggestions([]);
+//     }
+//   };
+
+//   const handleSuggestionClick = (option) => {
+//     setInputValue(option);
+//     setSuggestions([]);
+//   };
+
+//   return (
+//     <div>
+//       <input type="text" value={inputValue} onChange={handleInputChange} />
+//       {suggestions.length > 0 && (
+//         <ul>
+//           {suggestions.map((option) => (
+//             <li key={option} onClick={() => handleSuggestionClick(option)}>
+//               {option}
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//     </div>
+//   );
+// }
+
+// export default AutoCompleteInput;
+
 // import Card from "react-bootstrap/Card";
 // import ListGroup from "react-bootstrap/ListGroup";
 // import { useState, useEffect } from "react";

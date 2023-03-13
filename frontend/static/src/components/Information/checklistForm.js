@@ -3,6 +3,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import Dropdown from "react-bootstrap/Dropdown";
+import Accordion from "react-bootstrap/Accordion";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -39,7 +40,7 @@ function Note({ id, image, title, message, ...props }) {
         />
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter new image </Form.Label>
+        <Form.Label> New image </Form.Label>
         <input
           type="file"
           accept="image/png, image/jpeg"
@@ -68,30 +69,28 @@ function Note({ id, image, title, message, ...props }) {
   );
 
   const previewHTML = (
-    <div className="card" style={{ width: "18rem" }}>
-      <img className="card-img-top" src={image} alt="Card image cap" />
-      <div className="card-body">
-        <h5 className="card-title">{title}</h5>
-        <p className="card-text">{message}</p>
-      </div>
+    <Card id="info-card" className="col-md-8 .max-h-112">
+      <Card.Img id="info-img" className="card-img-top" src={image} />
+      <Card.Body>
+        <Card.Text>{title}</Card.Text>
+        <Card.Text>{message}</Card.Text>
 
-      <div className="card-body">
-        <button
+        <Button
           variant="secondary"
           type="button"
           onClick={() => props.deleteNote(id)}
         >
           Delete Note
-        </button>
-        <button
+        </Button>
+        <Button
           variant="secondary"
           type="button"
           onClick={() => setEditing(true)}
         >
           Edit Note
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Card.Body>
+    </Card>
   );
 
   return <>{isEditing ? editHTML : previewHTML}</>;
@@ -125,9 +124,9 @@ function NoteList({ Notes }) {
 
   const buttons = categories.map((category) => {
     return (
-      <button id="button" onClick={() => setSelectedCategory(category)}>
+      <Button id="button" onClick={() => setSelectedCategory(category)}>
         {category}{" "}
-      </button>
+      </Button>
     );
   });
 
@@ -220,8 +219,54 @@ function NoteList({ Notes }) {
   console.log(notes);
   return (
     <>
-      {/* {note.role === "admin" && ( */}
-      <Form
+      <Accordion defaultActiveKey="0">
+        <Accordion.Item eventKey="0">
+          <Accordion.Header>Add new convoy note</Accordion.Header>
+          <Accordion.Body>
+            <Form onSubmit={addNote}>
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                className="image"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+              <input
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                type="text"
+                className="title"
+                placeholder="Enter Note Caption Here"
+              />
+
+              <input
+                className="form-control form-control-lg"
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+                type="text"
+                placeholder="Enter your message here"
+              />
+
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Select a Category</label>
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  class="form-control"
+                  id="exampleFormControlSelect1"
+                >
+                  <option>Select a note category </option>
+                  <option>safety</option>
+                  <option>vehicle-info</option>
+                  <option>convoy-checklist</option>
+                </select>
+              </div>
+              <Button type="submit">Add Convoy Notes</Button>
+            </Form>
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+
+      {/* <Form
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
@@ -247,6 +292,7 @@ function NoteList({ Notes }) {
           className="body"
           placeholder="Enter your message here"
         />
+
         <input
           onChange={(e) => setCategory(e.target.value)}
           value={category}
@@ -257,8 +303,8 @@ function NoteList({ Notes }) {
         <div className="mt-2 pt-2 border-top">
           <Button type="submit">Add Convoy Notes</Button>
         </div>
-      </Form>
-      {/* )} */}
+      </Form> */}
+
       {buttons}
       {notesHTML}
     </>
