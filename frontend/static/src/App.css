@@ -62,16 +62,19 @@ Navbar {
   margin-left: 15px;
   left: 15%;
   margin-top: 5%;
-  border: solid black 0.5px;
+  border: solid rgb(103, 102, 102) 1px;
   background-color: rgb(244, 203, 39);
 }
 
 @media screen and (min-width: 900px) {
   .category-buttons {
-    max-height: 300px;
-    max-width: 350px;
-    margin-left: 55rem;
+    min-height: 60px;
+    min-width: 80px;
+    margin-left: 50rem;
+    left: 50px;
     border: solid;
     margin: 15px;
+    border: solid grey 0.5px;
+    border-radius: 5%;
   }
 }
