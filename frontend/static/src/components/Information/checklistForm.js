@@ -124,9 +124,13 @@ function NoteList({ Notes }) {
 
   const buttons = categories.map((category) => {
     return (
-      <Button id="button" onClick={() => setSelectedCategory(category)}>
+      <button
+        className="category-buttons"
+        id="button"
+        onClick={() => setSelectedCategory(category)}
+      >
         {category}{" "}
-      </Button>
+      </button>
     );
   });
 
@@ -239,7 +243,8 @@ function NoteList({ Notes }) {
               />
 
               <input
-                className="form-control form-control-lg"
+                id="message-input"
+                className="form-control "
                 onChange={(e) => setMessage(e.target.value)}
                 value={message}
                 type="text"

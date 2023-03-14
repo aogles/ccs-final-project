@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 const AuthenticatedHeader = () => {
   const { logout } = useContext(AuthContext);
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar id="navbar" bg="dark" expand="lg">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">

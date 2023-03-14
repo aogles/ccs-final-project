@@ -17,7 +17,7 @@ function App() {
   const { isAuth } = useContext(AuthContext);
 
   return (
-    <div>
+    <div id="body">
       {isAuth ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
 
       <Routes>

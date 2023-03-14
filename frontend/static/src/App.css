@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  background-color: rgb(165, 164, 164);
+}
+
+#body {
+  background-color: rgb(208, 208, 208);
 }
 
 .App-logo {
@@ -7,10 +12,15 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#navbar Button,
+NavLink {
+  color: black;
+  background-color: rgb(244, 203, 39);
+  border: solid 1px black;
+}
+Navbar {
+  background-color: black;
+  min-height: 6rem;
 }
 
 .App-header {
@@ -24,21 +34,44 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
 #info-img {
   max-height: 30rem;
 }
 @media screen and (min-width: 900px) {
   #info-img {
-    max-height: 30rem;
-    max-width: 30rem;
-    margin-left: 28rem;
+    max-height: 20rem;
+    max-width: 20rem;
+    margin-left: 55rem;
+    border: solid;
+    margin: 15px;
   }
 }
 
 #info-card {
   margin: 10%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#message-input {
+  min-height: 7rem;
+  overflow-wrap: break-word;
+}
+
+.category-buttons {
+  position: relative;
+  margin-left: 15px;
+  left: 15%;
+  margin-top: 5%;
+  border: solid black 0.5px;
+  background-color: rgb(244, 203, 39);
+}
+
+@media screen and (min-width: 900px) {
+  .category-buttons {
+    max-height: 300px;
+    max-width: 350px;
+    margin-left: 55rem;
+    border: solid;
+    margin: 15px;
+  }
 }
