@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { Navbar, Nav, Button } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const AuthenticatedHeader = () => {
   const { logout } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const AuthenticatedHeader = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
+          <FontAwesomeIcon icon="fa-regular fa-star" />
           <Button>
             <NavLink to="/login">Login</NavLink>
           </Button>

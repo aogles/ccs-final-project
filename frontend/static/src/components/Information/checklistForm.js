@@ -74,21 +74,24 @@ function Note({ id, image, title, message, ...props }) {
       <Card.Body>
         <Card.Text>{title}</Card.Text>
         <Card.Text>{message}</Card.Text>
-
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={() => props.deleteNote(id)}
-        >
-          Delete Note
-        </Button>
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={() => setEditing(true)}
-        >
-          Edit Note
-        </Button>
+        {message.role === "admin" && (
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => props.deleteNote(id)}
+          >
+            Delete Note
+          </Button>
+        )}
+        {message.role === "admin" && (
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => setEditing(true)}
+          >
+            Edit Note
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );

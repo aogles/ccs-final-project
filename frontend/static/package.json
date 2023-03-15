@@ -5,6 +5,9 @@
   "proxy": "http://127.0.0.1:8000",
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.3.0",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@googlemaps/google-maps-services-js": "^3.3.27",
     "@react-google-maps/api": "^2.18.1",
     "@testing-library/jest-dom": "^5.16.5",
