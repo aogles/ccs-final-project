@@ -152,36 +152,24 @@ function ConvoyChat() {
       className="modal show"
       style={{ display: "block", position: "initial" }}
     >
-      <Modal.Dialog className="messagemodal">
-        <Modal.Body>
-          <h2>{message.username}</h2>
+      {message.role === "user" && (
+        <div
+          className="alert alert-warning col-md-3 float-md-end offset-md-9"
+          role="alert"
+        >
+          <h4>{message.username}</h4>
           <p>{message.text}</p>
-          {(message.role === "user" || message.role === "admin") && (
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={() => deleteMessage(message.id)}
-            >
-              Delete Message
-            </Button>
-          )}
-          {message.role === "user" && (
-            <Button
-              variant="primary"
-              type="button"
-              onClick={() =>
-                editMessage(
-                  message.id,
-                  prompt("Enter the new caption for this message:")
-                )
-              }
-            >
-              {" "}
-              Edit
-            </Button>
-          )}
-        </Modal.Body>
-      </Modal.Dialog>
+        </div>
+      )}
+      {(message.role === "user" || message.role === "admin") && (
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => deleteMessage(message.id)}
+        >
+          Delete Message
+        </Button>
+      )}
     </div>
   ));
 
