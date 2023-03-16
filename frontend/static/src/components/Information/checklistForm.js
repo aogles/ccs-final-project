@@ -74,24 +74,22 @@ function Note({ id, image, title, message, ...props }) {
       <Card.Body>
         <Card.Text>{title}</Card.Text>
         <Card.Text>{message}</Card.Text>
-        {message.role === "admin" && (
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => props.deleteNote(id)}
-          >
-            Delete Note
-          </Button>
-        )}
-        {message.role === "admin" && (
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => setEditing(true)}
-          >
-            Edit Note
-          </Button>
-        )}
+
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => props.deleteNote(id)}
+        >
+          Delete Note
+        </Button>
+
+        <Button
+          variant="secondary"
+          type="button"
+          onClick={() => setEditing(true)}
+        >
+          Edit Note
+        </Button>
       </Card.Body>
     </Card>
   );
@@ -105,6 +103,8 @@ function NoteList({ Notes }) {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [category, setCategory] = useState("");
+  const [text, setText] = useState("");
+  const [convoy, setConvoy] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("safety");
 
   const getNotes = async () => {
@@ -136,8 +136,28 @@ function NoteList({ Notes }) {
       </button>
     );
   });
+  const addConvoy = async () => {
+    const convoy = {
+      text: text,
+    };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify(convoy),
+    };
+    const response = await fetch("/api_v1/convoy/", options);
+    if (!response.ok) {
+      throw new Error("network repsonse not ok.");
+    }
+    const data = await response.json();
 
-  const addNote = async (event) => {
+    setConvoy([...convoy, data]);
+  };
+
+  const addNote = async (event, convoy) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("image", image);
@@ -162,6 +182,7 @@ function NoteList({ Notes }) {
     setImage("");
     setTitle("");
     setCategory("");
+    setConvoy("");
   };
 
   const deleteNote = async (id) => {
