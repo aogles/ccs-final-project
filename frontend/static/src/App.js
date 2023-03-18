@@ -2,7 +2,8 @@ import "./App.css";
 import NavigationMap from "./components/Navigation/maps";
 import { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
-import ConvoyInfo from "./components/Information/convoy.js";
+import ConvoyList from "./components/Convoys/ConvoyList.js";
+import ConvoyDetail from "./components/Convoys/ConvoyDetail.js";
 import ConvoyChat from "./components/Communications/chatapp";
 import LoginForm from "./components/Auth/Login";
 import RegistrationForm from "./components/Auth/Registration";
@@ -25,14 +26,14 @@ function App() {
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/" element={<ProtectedRoute />}>
           <Route path="nav" element={<NavigationMap />} />
-          <Route path="/" element={<Homepage />} />
-          <Route path="info" element={<ConvoyInfo />} />
+          <Route path="convoys" element={<ConvoyList />} />
           <Route path="comms" element={<ConvoyChat />} />
+          <Route index element={<Homepage />} />
         </Route>
 
         {/* <Route path="/InformationForm" element={<InformationForm />} /> */}
 
-        <Route
+        {/* <Route
           path="*"
           element={
             <main>
@@ -41,7 +42,7 @@ function App() {
               </p>
             </main>
           }
-        />
+        /> */}
       </Routes>
     </div>
   );
