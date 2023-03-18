@@ -4,11 +4,12 @@ import Accordion from "react-bootstrap/Accordion";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-function RecordForm({ addRecord }) {
+function RecordForm({ addRecord, category, setCategory }) {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [category, setCategory] = useState("");
+  //   const [category, setCategory] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     addRecord({ message, title, image, category });
@@ -18,7 +19,7 @@ function RecordForm({ addRecord }) {
     setTitle("");
     setCategory("");
   };
-
+  console.log(category);
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey="0">

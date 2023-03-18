@@ -177,14 +177,16 @@ function ConvoyList() {
     setSelectedConvoyId(data.id);
   };
 
-  const addRecord = async (message, title, image, category) => {
+  const addRecord = async ({ message, title, image, category }) => {
     // event.preventDefault();
     const formData = new FormData();
-    formData.append("image", image);
+    if (image) {
+      formData.append("image", image);
+    }
     formData.append("title", title);
     formData.append("category", category);
     formData.append("message", message);
-
+    console.log(category);
     const options = {
       method: "POST",
       headers: {
@@ -199,13 +201,13 @@ function ConvoyList() {
     const data = await response.json();
     setRecords([...records, data]);
     setMessage("");
-    setImage("");
+    // setImage("");
     setTitle("");
-    setCategory("");
-    updatedConvoyDetail = { ...selectedConvoyDetail };
-    console.log(selectedConvoyDetail);
-    console.log(data);
-    updatedConvoyDetail.records.push(data);
+    // setCategory("");
+    // updatedConvoyDetail = { ...selectedConvoyDetail };
+    // console.log(selectedConvoyDetail);
+    // console.log(data);
+    // updatedConvoyDetail.records.push(data);
   };
   // implement the logic to add a new record
   // sample snippet of what you want to do once you save the record
@@ -264,13 +266,15 @@ function ConvoyList() {
   //   setNotes([...updatedNotes]);
   // };
 
+  // <Card
+  //   key={record.id}
+  //   {...record}
+  //   // deleteRecord={deleterecord}
+  //   // editRecord={editRecord}
+  // />;
+
   const recordsHTML = records.map((record) => (
-    <Card
-      key={record.id}
-      {...record}
-      // deleteRecord={deleterecord}
-      // editRecord={editRecord}
-    />
+    <Card key={record.id}>{record.message}</Card>
   ));
 
   if (convoys === null) {
@@ -290,7 +294,11 @@ function ConvoyList() {
 
   return (
     <>
-      <RecordForm addRecord={addRecord} />
+      <RecordForm
+        addRecord={addRecord}
+        category={category}
+        setCategory={setCategory}
+      />
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           Select Convoy
@@ -299,9 +307,11 @@ function ConvoyList() {
       </Dropdown>
       <ConvoyForm addConvoy={addConvoy} />
       {selectedConvoyDetail && (
-        <ConvoyDetail selectedConvoyDetail={selectedConvoyDetail} />
+        <ConvoyDetail
+          selectedConvoyDetail={selectedConvoyDetail}
+          records={records}
+        />
       )}
-      {recordsHTML}
     </>
   );
 }
