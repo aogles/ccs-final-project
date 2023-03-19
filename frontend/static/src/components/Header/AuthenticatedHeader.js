@@ -31,7 +31,7 @@ const AuthenticatedHeader = () => {
           </Button>
 
           <Button>
-            <NavLink to="info">Convoy Information</NavLink>
+            <NavLink to="convoys">Convoy Information</NavLink>
           </Button>
 
           <Button>

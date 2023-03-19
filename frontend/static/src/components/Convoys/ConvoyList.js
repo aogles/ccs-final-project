@@ -10,94 +10,7 @@ import ConvoyForm from "./ConvoyForm";
 import ConvoyDetail from "./ConvoyDetail";
 import RecordForm from "./RecordForm";
 
-// function Note({ id, image, title, message, ...props }) {
-//   const [isEditing, setEditing] = useState(false);
-//   const [newMessage, setNewMessage] = useState(message);
-//   const [newTitle, setNewTitle] = useState(title);
-//   const [newImage, setNewImage] = useState(image);
-
-//   // Dont send the image url back to the database. Only send an image if you select a new image!!!
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const updatedNote = {
-//       message: newMessage,
-//       title: newTitle,
-//       image: newImage,
-//     };
-
-//     props.editNote(id, updatedNote);
-//     setEditing(false);
-//   };
-
-//   const editHTML = (
-//     <Form onSubmit={handleSubmit}>
-//       <Form.Group className="mb-3" controlId="formBasicEmail">
-//         <Form.Label>Enter new note </Form.Label>
-//         <Form.Control
-//           id={id}
-//           type="text"
-//           value={newMessage}
-//           onChange={(e) => setNewMessage(e.target.value)}
-//         />
-//       </Form.Group>
-//       <Form.Group className="mb-3" controlId="formBasicEmail">
-//         <Form.Label> New image </Form.Label>
-//         <input
-//           type="file"
-//           accept="image/png, image/jpeg"
-//           className="image"
-//           onChange={(e) => setNewImage(e.target.files[0])}
-//         />
-//       </Form.Group>
-//       <Form.Group className="mb-3" controlId="formBasicEmail">
-//         <Form.Label>Enter new caption </Form.Label>
-//         <Form.Control
-//           id={id}
-//           className="todo-text"
-//           type="text"
-//           value={newTitle}
-//           onChange={(e) => setNewTitle(e.target.value)}
-//         />
-//       </Form.Group>
-
-//       <Button variant="primary" type="submit">
-//         Submit
-//       </Button>
-//       <Button type="button" onClick={() => setEditing(false)}>
-//         Cancel{" "}
-//       </Button>
-//     </Form>
-//   );
-
-//   const previewHTML = (
-//     <Card id="info-card" className="col-md-8 .max-h-112">
-//       <Card.Img id="info-img" className="card-img-top" src={image} />
-//       <Card.Body>
-//         <Card.Text>{title}</Card.Text>
-//         <Card.Text>{message}</Card.Text>
-
-//         <Button
-//           variant="secondary"
-//           type="button"
-//           onClick={() => props.deleteNote(id)}
-//         >
-//           Delete Note
-//         </Button>
-
-//         <Button
-//           variant="secondary"
-//           type="button"
-//           onClick={() => setEditing(true)}
-//         >
-//           Edit Note
-//         </Button>
-//       </Card.Body>
-//     </Card>
-//   );
-
-//   return <>{isEditing ? editHTML : previewHTML}</>;
-// }
+// Dont send the image url back to the database. Only send an image if you select a new image!!!
 
 function ConvoyList() {
   const [convoys, setConvoys] = useState([]);
@@ -213,68 +126,74 @@ function ConvoyList() {
   // sample snippet of what you want to do once you save the record
   // const data = { id: 2, prop: "value" };
   // updatedConvoyDetail = { ...selectedConvoyDetail };
-  // updateConvoyDetail.records.push(data);
+  // updatedConvoyDetail.records.push(data);
 
-  // const deleteNote = async (id) => {
-  //   const response = await fetch(`/api_v1/notes/${id}/`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       "X-CSRFToken": Cookies.get("csrftoken"),
-  //     },
-  //   });
-  //   if (!response.ok) {
-  //     throw new Error("Failed to delete note");
-  //   }
-  //   setNotes(notes.filter((note) => note.id !== id));
-  // };
+  const deleteRecord = async (id) => {
+    const response = await fetch(`/api_v1/convoys/records/${id}/`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to delete note");
+    }
+    setRecords(records.filter((record) => record.id !== id));
+  };
 
   // Create a new FormData object and add the updated note's body to it
-  // const editNote = async (id, updatedNote) => {
-  //   const formData = new FormData();
-  //   formData.append("message", updatedNote.message);
-  //   formData.append("title", updatedNote.title);
-  //   formData.append("image", updatedNote.image);
-  //   // Use the HTTP PATCH method to update the note
-  //   const options = {
-  //     method: "PATCH",
-  //     headers: {
-  //       "X-CSRFToken": Cookies.get("csrftoken"),
-  //     },
-  //     // Set the body of the request to the FormData object created earlier
-  //     body: formData,
-  //   };
-  //   // Send the fetch request to the API endpoint for updating a note
-  //   const response = await fetch(`/api_v1/notes/${id}/`, options);
 
-  //   if (!response.ok) {
-  //     throw new Error("Failed to edit note");
-  //   }
-  //   // Copy the current list of notes and add the updated note to it
-  //   const data = await response.json();
-  //   //const updatedNotes = [...notes, data];
-  //   // Find the index of the note with the specified id in the updated list of notes
-  //   //const index = updatedNotes.findIndex((note) => note.id === id);
-  //   //Replace the old note with the updated note at the specified index
-  //   //updatedNotes[index] = data;
-  //   // Set the state of the notes to the updated list of notes
+  const editRecord = async (id, updatedRecord) => {
+    const formData = new FormData();
+    formData.append("message", updatedRecord.message);
+    formData.append("title", updatedRecord.title);
+    formData.append("image", updatedRecord.image);
+    // Use the HTTP PATCH method to update the note
+    const options = {
+      method: "PATCH",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      // Set the body of the request to the FormData object created earlier
+      body: formData,
+    };
+    // Send the fetch request to the API endpoint for updating a note
+    const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
 
-  //   const updatedNotes = [...notes];
+    if (!response.ok) {
+      throw new Error("Failed to edit note");
+    }
+    // Copy the current list of notes and add the updated note to it
+    const data = await response.json();
+    //const updatedNotes = [...notes, data];
+    // Find the index of the note with the specified id in the updated list of notes
+    //const index = updatedNotes.findIndex((note) => note.id === id);
+    //Replace the old note with the updated note at the specified index
+    //updatedNotes[index] = data;
+    // Set the state of the notes to the updated list of notes
 
-  //   const index = updatedNotes.findIndex((note) => note.id === id);
-  //   updatedNotes[index] = data;
+    const updatedRecords = [...records];
 
-  //   setNotes([...updatedNotes]);
-  // };
+    const index = updatedRecords.findIndex((record) => record.id === id);
+    updatedRecords[index] = data;
+
+    setRecords([...updatedRecords]);
+  };
 
   // <Card
   //   key={record.id}
   //   {...record}
-  //   // deleteRecord={deleterecord}
+  //   // deleteRecord={deleteRecord}
   //   // editRecord={editRecord}
   // />;
 
   const recordsHTML = records.map((record) => (
-    <Card key={record.id}>{record.message}</Card>
+    <Card
+      key={record.id}
+      {...record}
+      deleteRecord={deleteRecord}
+      editRecord={editRecord}
+    ></Card>
   ));
 
   if (convoys === null) {
@@ -285,7 +204,9 @@ function ConvoyList() {
     <Dropdown.Item
       key={convoy.id}
       type="button"
-      onClick={() => setSelectedConvoyId(convoy.id)}
+      onClick={() => {
+        setSelectedConvoyId(convoy.id);
+      }}
     >
       {" "}
       {convoy.text}
@@ -310,6 +231,8 @@ function ConvoyList() {
         <ConvoyDetail
           selectedConvoyDetail={selectedConvoyDetail}
           records={records}
+          selectedConvoyId={selectedConvoyId}
+          setRecords={setRecords}
         />
       )}
     </>
