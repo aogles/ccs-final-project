@@ -159,16 +159,26 @@ function ConvoyChat() {
         >
           <h4>{message.username}</h4>
           <p>{message.text}</p>
+          {(message.role === "user" || message.role === "admin") && (
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => deleteMessage(message.id)}
+            >
+              Delete Message
+            </Button>
+          )}
         </div>
       )}
-      {(message.role === "user" || message.role === "admin") && (
-        <Button
-          variant="secondary"
-          type="button"
-          onClick={() => deleteMessage(message.id)}
+      {message.role !== "user" && (
+        <div
+          id="chat-message"
+          key={message.id}
+          className="chat-bubble float-md-start bg-primary offset-m-0"
         >
-          Delete Message
-        </Button>
+          <h4>{message.username}</h4>
+          <p>{message.text}</p>
+        </div>
       )}
     </div>
   ));

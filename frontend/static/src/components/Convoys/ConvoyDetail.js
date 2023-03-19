@@ -17,7 +17,6 @@ function ConvoyDetail({
   image,
   title,
   message,
-  deleteRecord,
 }) {
   const categories = ["safety", "vehicle-info", "convoy-checklist"];
   const [category, setCategory] = useState(categories[0]);
@@ -34,6 +33,18 @@ function ConvoyDetail({
 
     editRecord();
     setIsEditing(false);
+  };
+  const deleteRecord = async () => {
+    const response = await fetch(`/api_v1/convoys/records/${recordId}/`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to delete note");
+    }
+    setRecords(records.filter((record) => record.id !== id));
   };
 
   const editRecord = async () => {
@@ -151,7 +162,7 @@ function ConvoyDetail({
               <Button
                 variant="secondary"
                 type="button"
-                onClick={() => deleteRecord(id)}
+                onClick={() => deleteRecord(record.id)}
               >
                 Delete Note
               </Button>
@@ -176,6 +187,7 @@ function ConvoyDetail({
       <h2>{selectedConvoyDetail.text}</h2>
       {categoryFilters}
       {records && recordsHTML}
+      {deleteRecord}
     </>
   );
 }

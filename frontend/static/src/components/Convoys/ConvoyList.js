@@ -134,18 +134,18 @@ function ConvoyList() {
   // updatedConvoyDetail = { ...selectedConvoyDetail };
   // updatedConvoyDetail.records.push(data);
 
-  const deleteRecord = async (id) => {
-    const response = await fetch(`/api_v1/convoys/records/${id}/`, {
-      method: "DELETE",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to delete note");
-    }
-    setRecords(records.filter((record) => record.id !== id));
-  };
+  // const deleteRecord = async (id) => {
+  //   const response = await fetch(`/api_v1/convoys/records/${id}/`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       "X-CSRFToken": Cookies.get("csrftoken"),
+  //     },
+  //   });
+  //   if (!response.ok) {
+  //     throw new Error("Failed to delete note");
+  //   }
+  //   setRecords(records.filter((record) => record.id !== id));
+  // };
 
   // Create a new FormData object and add the updated note's body to it
 
@@ -233,24 +233,3 @@ function ConvoyList() {
 }
 
 export default ConvoyList;
-
-//       <Card style={{ width: "18rem" }}>
-//         <Card.Body>
-//           <Card.Title>Add convoy</Card.Title>
-
-//         </Card.Body>
-//       </Card>
-//       <Dropdown style={{ width: "18rem" }}>
-//         <Dropdown.Toggle
-//           style={{ width: "18rem" }}
-//           className="togglebutton"
-//           variant="success"
-//           id="dropdown-basic"
-//         >
-//           Convoy by Section
-//         </Dropdown.Toggle>
-
-//       </Dropdown>
-
-//       {buttons}
-//       {notesHTML}
