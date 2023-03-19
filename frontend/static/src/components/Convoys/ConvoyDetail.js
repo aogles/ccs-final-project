@@ -34,8 +34,8 @@ function ConvoyDetail({
     editRecord();
     setIsEditing(false);
   };
-  const deleteRecord = async () => {
-    const response = await fetch(`/api_v1/convoys/records/${recordId}/`, {
+  const deleteRecord = async (id) => {
+    const response = await fetch(`/api_v1/convoys/records/${id}/`, {
       method: "DELETE",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
