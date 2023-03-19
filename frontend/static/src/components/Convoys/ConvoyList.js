@@ -14,6 +14,7 @@ import RecordForm from "./RecordForm";
 
 function ConvoyList() {
   const [convoys, setConvoys] = useState([]);
+  const [text, setText] = useState("");
   const [selectedConvoyId, setSelectedConvoyId] = useState(null);
   const [selectedConvoyDetail, setSelectedConvoyDetail] = useState(null);
   const [updatedConvoyDetail, setupdatedConvoyDetail] = useState(null);
@@ -25,18 +26,21 @@ function ConvoyList() {
 
   useEffect(() => {
     const getRecords = async () => {
-      const response = await fetch("/api_v1/convoys/records");
+      if (selectedConvoyId) {
+        const response = await fetch(
+          `/api_v1/convoys/records/?convoy=${selectedConvoyId}`
+        );
 
-      if (!response.ok) {
-        throw new Error("Network response was not OK");
+        if (!response.ok) {
+          throw new Error("Network response was not OK");
+        }
+        const data = await response.json();
+        setRecords(data);
       }
-
-      const data = await response.json();
-      setRecords(data);
-      // setSelectedConvoy(data[0].id);
     };
+
     getRecords();
-  }, []);
+  }, [selectedConvoyId]);
 
   useEffect(() => {
     const getConvoys = async () => {
@@ -48,7 +52,6 @@ function ConvoyList() {
 
       const data = await response.json();
       setConvoys(data);
-      console.log(data);
       // setSelectedConvoy(data[0].id);
     };
     getConvoys();
@@ -63,7 +66,6 @@ function ConvoyList() {
       }
 
       const data = await response.json();
-      console.log(data);
       setSelectedConvoyDetail(data);
     };
 
@@ -72,7 +74,10 @@ function ConvoyList() {
     }
   }, [selectedConvoyId]);
 
-  const addConvoy = async (convoy) => {
+  const addConvoy = async () => {
+    const convoy = {
+      text: text,
+    };
     const options = {
       method: "POST",
       headers: {
@@ -101,7 +106,6 @@ function ConvoyList() {
     formData.append("category", category);
     formData.append("message", message);
     formData.append("convoy", convoy);
-    console.log(category);
     const options = {
       method: "POST",
       headers: {
@@ -145,43 +149,43 @@ function ConvoyList() {
 
   // Create a new FormData object and add the updated note's body to it
 
-  const editRecord = async (id, updatedRecord) => {
-    const formData = new FormData();
-    formData.append("message", updatedRecord.message);
-    formData.append("title", updatedRecord.title);
-    formData.append("image", updatedRecord.image);
-    formData.append("convoy", updatedRecord.convoy);
-    // Use the HTTP PATCH method to update the note
-    const options = {
-      method: "PATCH",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-      // Set the body of the request to the FormData object created earlier
-      body: formData,
-    };
-    // Send the fetch request to the API endpoint for updating a note
-    const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
+  // const editRecord = async (id, updatedRecord) => {
+  //   const formData = new FormData();
+  //   formData.append("message", updatedRecord.message);
+  //   formData.append("title", updatedRecord.title);
+  //   formData.append("image", updatedRecord.image);
+  //   formData.append("convoy", updatedRecord.convoy);
+  //   // Use the HTTP PATCH method to update the note
+  //   const options = {
+  //     method: "PATCH",
+  //     headers: {
+  //       "X-CSRFToken": Cookies.get("csrftoken"),
+  //     },
+  //     // Set the body of the request to the FormData object created earlier
+  //     body: formData,
+  //   };
+  //   // Send the fetch request to the API endpoint for updating a note
+  //   const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
 
-    if (!response.ok) {
-      throw new Error("Failed to edit note");
-    }
-    // Copy the current list of notes and add the updated note to it
-    const data = await response.json();
-    //const updatedNotes = [...notes, data];
-    // Find the index of the note with the specified id in the updated list of notes
-    //const index = updatedNotes.findIndex((note) => note.id === id);
-    //Replace the old note with the updated note at the specified index
-    //updatedNotes[index] = data;
-    // Set the state of the notes to the updated list of notes
+  //   if (!response.ok) {
+  //     throw new Error("Failed to edit note");
+  //   }
+  //   // Copy the current list of notes and add the updated note to it
+  //   const data = await response.json();
+  //   //const updatedNotes = [...notes, data];
+  //   // Find the index of the note with the specified id in the updated list of notes
+  //   //const index = updatedNotes.findIndex((note) => note.id === id);
+  //   //Replace the old note with the updated note at the specified index
+  //   //updatedNotes[index] = data;
+  //   // Set the state of the notes to the updated list of notes
 
-    const updatedRecords = [...records];
+  //   const updatedRecords = [...records];
 
-    const index = updatedRecords.findIndex((record) => record.id === id);
-    updatedRecords[index] = data;
+  //   const index = updatedRecords.findIndex((record) => record.id === id);
+  //   updatedRecords[index] = data;
 
-    setRecords([...updatedRecords]);
-  };
+  //   setRecords([...updatedRecords]);
+  // };
 
   // <Card
   //   key={record.id}
@@ -189,27 +193,11 @@ function ConvoyList() {
   //   // deleteRecord={deleteRecord}
   //   // editRecord={editRecord}
   // />;
-
-  const recordsHTML = records.map((record) => (
-    <Card
-      key={record.id}
-      {...record}
-      deleteRecord={deleteRecord}
-      editRecord={editRecord}
-    ></Card>
-  ));
-
-  if (convoys === null) {
-    return <div>Loading...</div>;
-  }
-
   const convoyHTML = convoys.map((convoy) => (
     <Dropdown.Item
       key={convoy.id}
       type="button"
-      onClick={() => {
-        setSelectedConvoyId(convoy.id);
-      }}
+      onClick={() => setSelectedConvoyId(convoy.id)}
     >
       {" "}
       {convoy.text}

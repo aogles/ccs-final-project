@@ -25,32 +25,26 @@ function ConvoyDetail({
   const [newMessage, setNewMessage] = useState(message);
   const [newTitle, setNewTitle] = useState(title);
   const [newImage, setNewImage] = useState(image);
-  const [newId, setNewId] = useState("");
+  const [recordId, setRecordId] = useState("");
+  console.log(selectedConvoyId);
+  console.log(newMessage);
   let recordsHTML;
-  console.log(records);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedRecord = {
-      id: newId,
-      message: newMessage,
-      title: newTitle,
-      image: newImage,
-      convoy: selectedConvoyId,
-    };
 
-    editRecord(updatedRecord);
+    editRecord();
     setIsEditing(false);
   };
 
-  const editRecord = async (updatedRecord) => {
-    console.log(updatedRecord);
-    console.log(updatedRecord);
+  const editRecord = async () => {
     setIsEditing(true);
     const formData = new FormData();
-    formData.append("id", newId);
+
     formData.append("message", newMessage);
     formData.append("title", newTitle);
-    formData.append("image", newImage);
+    if (newImage) {
+      formData.append("image", newImage);
+    }
     formData.append("convoy", selectedConvoyId);
     // Use the HTTP PATCH method to update the note
     const options = {
@@ -64,7 +58,10 @@ function ConvoyDetail({
     // Send the fetch request to the API endpoint for updating a note
     // ---------------- Add this url path and make sure you're sending up all the correct fields
     // ---------------- You can check what you're sending up in network
-    const response = await fetch(`/api_v1/convoys/records/${newId}/`, options);
+    const response = await fetch(
+      `/api_v1/convoys/records/${recordId}/`,
+      options
+    );
 
     if (!response.ok) {
       throw new Error("Failed to edit note");
@@ -75,7 +72,9 @@ function ConvoyDetail({
     const index = updatedRecords.findIndex((record) => record.id === id);
     updatedRecords[index] = data;
     setRecords([...updatedRecords]);
+    console.log(data);
   };
+
   const categoryFilters = categories.map((category) => {
     return (
       <button
@@ -91,11 +90,13 @@ function ConvoyDetail({
   if (records === null) {
     return <div>Loading...</div>;
   }
+
+  // const recordsHTML = records.map((record) => (
+  //   <Card key={record.id} {...record} deleteRecord={deleteRecord}></Card>
+  // ));
+  console.log(recordId);
   recordsHTML = records
-    .filter(
-      (record) =>
-        record.category === category && record.convoy === selectedConvoyId
-    )
+    .filter((record) => record.category === category)
     .map((record) => (
       <div key={record.id}>
         {isEditing ? (
@@ -107,12 +108,6 @@ function ConvoyDetail({
                 type="text"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-              />
-              <Form.Control
-                id={record.id}
-                type="text"
-                value={id}
-                onChange={(e) => setNewId(e.target.value)}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -164,7 +159,10 @@ function ConvoyDetail({
               <Button
                 variant="secondary"
                 type="button"
-                onClick={() => setIsEditing(true)}
+                onClick={() => {
+                  setIsEditing(true);
+                  setRecordId(record.id);
+                }}
               >
                 Edit Note
               </Button>
@@ -173,7 +171,6 @@ function ConvoyDetail({
         )}
       </div>
     ));
-
   return (
     <>
       <h2>{selectedConvoyDetail.text}</h2>
