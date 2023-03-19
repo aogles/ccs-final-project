@@ -17,7 +17,7 @@ function ConvoyDetail({
   image,
   title,
   message,
-  ...props
+  deleteRecord,
 }) {
   const categories = ["safety", "vehicle-info", "convoy-checklist"];
   const [category, setCategory] = useState(categories[0]);
@@ -25,26 +25,33 @@ function ConvoyDetail({
   const [newMessage, setNewMessage] = useState(message);
   const [newTitle, setNewTitle] = useState(title);
   const [newImage, setNewImage] = useState(image);
+  const [newId, setNewId] = useState("");
   let recordsHTML;
-
+  console.log(records);
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedRecord = {
+      id: newId,
       message: newMessage,
       title: newTitle,
       image: newImage,
+      convoy: selectedConvoyId,
     };
-    props.editRecord(id, updatedRecord);
+
+    editRecord(updatedRecord);
     setIsEditing(false);
   };
 
-  const editRecord = async (id, updatedRecord) => {
+  const editRecord = async (updatedRecord) => {
+    console.log(updatedRecord);
+    console.log(updatedRecord);
     setIsEditing(true);
     const formData = new FormData();
-
+    formData.append("id", newId);
     formData.append("message", newMessage);
     formData.append("title", newTitle);
     formData.append("image", newImage);
+    formData.append("convoy", selectedConvoyId);
     // Use the HTTP PATCH method to update the note
     const options = {
       method: "PATCH",
@@ -55,7 +62,9 @@ function ConvoyDetail({
       body: formData,
     };
     // Send the fetch request to the API endpoint for updating a note
-    const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
+    // ---------------- Add this url path and make sure you're sending up all the correct fields
+    // ---------------- You can check what you're sending up in network
+    const response = await fetch(`/api_v1/convoys/records/${newId}/`, options);
 
     if (!response.ok) {
       throw new Error("Failed to edit note");
@@ -70,6 +79,7 @@ function ConvoyDetail({
   const categoryFilters = categories.map((category) => {
     return (
       <button
+        key={category}
         className="category-buttons"
         id="button"
         onClick={() => setCategory(category)}
@@ -78,91 +88,97 @@ function ConvoyDetail({
       </button>
     );
   });
-
-  if (records) {
-    recordsHTML = records
-      .filter(
-        (record) =>
-          record.category === category && record.convoy === selectedConvoyId
-      )
-      .map((record) => (
-        <div>
-          {isEditing ? (
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Enter new note </Form.Label>
-                <Form.Control
-                  id={record.id}
-                  type="text"
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label> New image </Form.Label>
-                <input
-                  type="file"
-                  accept="image/png, image/jpeg"
-                  className="image"
-                  onChange={(e) => setNewImage(e.target.files[0])}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Enter new caption </Form.Label>
-                <Form.Control
-                  id={record.id}
-                  className="todo-text"
-                  type="text"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                />
-              </Form.Group>
-
-              <Button variant="primary" type="submit">
-                Submit
-              </Button>
-              <Button type="button" onClick={() => setIsEditing(false)}>
-                Cancel{" "}
-              </Button>
-            </Form>
-          ) : (
-            <Card id="info-card" className="col-md-8 .max-h-112">
-              <Card.Img
-                id="info-img"
-                className="card-img-top"
-                src={record.image}
-              />
-              <Card.Body>
-                <Card.Text>{record.title}</Card.Text>
-                <Card.Text>{record.message}</Card.Text>
-
-                <Button
-                  variant="secondary"
-                  type="button"
-                  onClick={() => props.deleteRecord(id)}
-                >
-                  Delete Note
-                </Button>
-
-                <Button
-                  variant="secondary"
-                  type="button"
-                  onClick={() => setIsEditing(true)}
-                >
-                  Edit Note
-                </Button>
-              </Card.Body>
-            </Card>
-          )}
-        </div>
-      ));
+  if (records === null) {
+    return <div>Loading...</div>;
   }
+  recordsHTML = records
+    .filter(
+      (record) =>
+        record.category === category && record.convoy === selectedConvoyId
+    )
+    .map((record) => (
+      <div key={record.id}>
+        {isEditing ? (
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Enter new note </Form.Label>
+              <Form.Control
+                id={record.id}
+                type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+              />
+              <Form.Control
+                id={record.id}
+                type="text"
+                value={id}
+                onChange={(e) => setNewId(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label> New image </Form.Label>
+              <input
+                type="file"
+                accept="image/png, image/jpeg"
+                className="image"
+                onChange={(e) => setNewImage(e.target.files[0])}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label>Enter new caption </Form.Label>
+              <Form.Control
+                id={record.id}
+                className="todo-text"
+                type="text"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+            <Button type="button" onClick={() => setIsEditing(false)}>
+              Cancel{" "}
+            </Button>
+          </Form>
+        ) : (
+          <Card id="info-card" className="col-md-8 .max-h-112">
+            <Card.Img
+              id="info-img"
+              className="card-img-top"
+              src={record.image}
+            />
+            <Card.Body>
+              <Card.Text>{record.title}</Card.Text>
+              <Card.Text>{record.message}</Card.Text>
+
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => deleteRecord(id)}
+              >
+                Delete Note
+              </Button>
+
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit Note
+              </Button>
+            </Card.Body>
+          </Card>
+        )}
+      </div>
+    ));
 
   return (
     <>
       <h2>{selectedConvoyDetail.text}</h2>
       {categoryFilters}
-      {recordsHTML}
+      {records && recordsHTML}
     </>
   );
 }

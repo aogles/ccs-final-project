@@ -48,6 +48,7 @@ function ConvoyList() {
 
       const data = await response.json();
       setConvoys(data);
+      console.log(data);
       // setSelectedConvoy(data[0].id);
     };
     getConvoys();
@@ -90,7 +91,7 @@ function ConvoyList() {
     setSelectedConvoyId(data.id);
   };
 
-  const addRecord = async ({ message, title, image, category }) => {
+  const addRecord = async ({ message, title, image, category, convoy }) => {
     // event.preventDefault();
     const formData = new FormData();
     if (image) {
@@ -99,6 +100,7 @@ function ConvoyList() {
     formData.append("title", title);
     formData.append("category", category);
     formData.append("message", message);
+    formData.append("convoy", convoy);
     console.log(category);
     const options = {
       method: "POST",
@@ -148,6 +150,7 @@ function ConvoyList() {
     formData.append("message", updatedRecord.message);
     formData.append("title", updatedRecord.title);
     formData.append("image", updatedRecord.image);
+    formData.append("convoy", updatedRecord.convoy);
     // Use the HTTP PATCH method to update the note
     const options = {
       method: "PATCH",
@@ -219,6 +222,8 @@ function ConvoyList() {
         addRecord={addRecord}
         category={category}
         setCategory={setCategory}
+        convoys={convoys}
+        setConvoys={setConvoys}
       />
       <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">

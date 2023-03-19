@@ -1,31 +1,48 @@
 import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { Button, Form, Dropdown } from "react-bootstrap";
 
-function RecordForm({ addRecord, category, setCategory }) {
+function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+  const [convoy, setConvoy] = useState("");
   //   const [category, setCategory] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addRecord({ message, title, image, category });
-
+    addRecord({ message, title, image, category, convoy });
+    setConvoy("");
     setMessage("");
     setImage("");
     setTitle("");
     setCategory("");
   };
-  console.log(category);
+  const convoyHTML = convoys.map((convoy) => (
+    <Dropdown.Item
+      key={convoy.id}
+      type="button"
+      onClick={() => {
+        setConvoy(convoy.id);
+      }}
+    >
+      {convoy.text}
+    </Dropdown.Item>
+  ));
+  //   console.log(category);
   return (
     <Accordion defaultActiveKey="0">
       <Accordion.Item eventKey="0">
         <Accordion.Header>Add new convoy note</Accordion.Header>
         <Accordion.Body>
           <Form onSubmit={handleSubmit}>
+            <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                Select Convoy
+              </Dropdown.Toggle>
+              <Dropdown.Menu>{convoyHTML}</Dropdown.Menu>
+            </Dropdown>
             <input
               type="file"
               accept="image/png, image/jpeg"
