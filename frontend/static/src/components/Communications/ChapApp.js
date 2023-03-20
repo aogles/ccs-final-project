@@ -5,6 +5,85 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { text } from "@fortawesome/fontawesome-svg-core";
+
+function Message({ message, ...props }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState(message.id);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await props.editMessage({ id: message.id, text });
+    setIsEditing(false);
+  };
+
+  const editHTML = (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Enter new message </Form.Label>
+        <input
+          id={message.id}
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Save
+      </Button>
+      <Button type="button" onClick={() => setIsEditing(false)}>
+        Cancel{" "}
+      </Button>
+    </Form>
+  );
+
+  const previewHTML = (
+    <div
+      className="modal show"
+      style={{ display: "block", position: "initial" }}
+    >
+      {message.role === "user" && (
+        <div
+          className="alert alert-warning col-md-3 float-md-end offset-md-9"
+          role="alert"
+        >
+          <h4>{message.username}</h4>
+          <p>{message.text}</p>
+          {(message.role === "user" || message.role === "admin") && (
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => props.deleteMessage(message.id)}
+            >
+              Delete Message
+            </Button>
+          )}
+          {(message.role === "user" || message.role === "admin") && (
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => setIsEditing(true)}
+            >
+              Edit Message
+            </Button>
+          )}
+        </div>
+      )}
+      {message.role !== "user" && (
+        <div
+          id="chat-message"
+          key={message.id}
+          className="chat-bubble float-md-start bg-primary offset-m-0"
+        >
+          <h4>{message.username}</h4>
+          <p>{message.text}</p>
+        </div>
+      )}
+    </div>
+  );
+
+  return <>{isEditing ? editHTML : previewHTML}</>;
+}
 
 function ConvoyChat() {
   const [caption, setCaption] = useState("");
@@ -12,6 +91,7 @@ function ConvoyChat() {
   const [channels, setChannels] = useState(null);
   const [messages, setMessages] = useState([]);
   const [selectedChannel, setSelectedChannel] = useState(null);
+  const [updatedCaption, setUpdatedCaption] = useState(caption);
 
   useEffect(() => {
     const getChannels = async () => {
@@ -23,7 +103,6 @@ function ConvoyChat() {
 
       const data = await response.json();
       setChannels(data);
-      setSelectedChannel(data[0].id);
     };
     getChannels();
   }, []);
@@ -108,10 +187,8 @@ function ConvoyChat() {
     setMessages(messages.filter((message) => message.id !== id));
   };
 
-  const editMessage = async (id, newCaption) => {
-    const updatedMessage = {
-      text: newCaption,
-    };
+  const editMessage = async ({ id, text }) => {
+    // setIsEditing(true);
 
     const response = await fetch(`/api_v1/messages/${id}/`, {
       method: "PUT",
@@ -119,7 +196,7 @@ function ConvoyChat() {
         "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      body: JSON.stringify(updatedMessage),
+      body: JSON.stringify({ text }),
     }).catch((err) => console.warn(err));
 
     if (!response.ok) {
@@ -135,6 +212,16 @@ function ConvoyChat() {
     );
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const updatedMessage = {
+  //     text: updatedCaption,
+  //   };
+
+  //   editMessage();
+  //   setIsEditing(false);
+  // };
+
   const channelsHTML = channels?.map((channel) => (
     <Dropdown.Item
       key={channel.id}
@@ -146,41 +233,14 @@ function ConvoyChat() {
     </Dropdown.Item>
   ));
 
+  //END EDIT MESSAGE FUNCTIONALITY//
+
   const messagesHTML = messages.map((message) => (
-    <div
-      key={message.id}
-      className="modal show"
-      style={{ display: "block", position: "initial" }}
-    >
-      {message.role === "user" && (
-        <div
-          className="alert alert-warning col-md-3 float-md-end offset-md-9"
-          role="alert"
-        >
-          <h4>{message.username}</h4>
-          <p>{message.text}</p>
-          {(message.role === "user" || message.role === "admin") && (
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={() => deleteMessage(message.id)}
-            >
-              Delete Message
-            </Button>
-          )}
-        </div>
-      )}
-      {message.role !== "user" && (
-        <div
-          id="chat-message"
-          key={message.id}
-          className="chat-bubble float-md-start bg-primary offset-m-0"
-        >
-          <h4>{message.username}</h4>
-          <p>{message.text}</p>
-        </div>
-      )}
-    </div>
+    <Message
+      message={message}
+      deleteMessage={deleteMessage}
+      editMessage={editMessage}
+    />
   ));
 
   return (

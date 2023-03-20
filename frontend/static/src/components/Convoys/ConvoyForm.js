@@ -18,10 +18,10 @@ function ConvoyForm({ addConvoy }) {
         value={text}
         type="text"
         className="text"
-        placeholder="Enter Note Convoy Here"
+        placeholder="Enter Convoy Notes Here"
       />
       <Button type="submit" variant="primary">
-        Go somewhere
+        Submit
       </Button>
     </Form>
   );

@@ -9,6 +9,7 @@ import {
   GoogleMap,
   DirectionsRenderer,
   useLoadScript,
+  MarkerF,
 } from "@react-google-maps/api";
 
 const SECRET_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
@@ -20,6 +21,7 @@ const NavigationMap = () => {
   const [destination, setDestination] = useState("");
   const [response, setResponse] = useState(null);
   const [directions, setDirections] = useState(null);
+  const [infoBox, setInfoBox] = useState("");
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: SECRET_KEY,
@@ -45,6 +47,17 @@ const NavigationMap = () => {
 
   const handleDirectionsRender = (directions) => {
     setDirections(directions);
+  };
+
+  const center = {
+    lat: 29.9511,
+    lng: -90.0715,
+  };
+
+  const options = { closeBoxURL: "", enableEventPropagation: true };
+
+  const onLoad = (marker) => {
+    console.log("infoBox: ", marker);
   };
 
   if (loadError) return "Error loading maps";
@@ -75,11 +88,16 @@ const NavigationMap = () => {
             directions={response}
             onReady={handleDirectionsRender}
           />
+          <MarkerF
+            onLoad={onLoad}
+            options={options}
+            position={center}
+          ></MarkerF>
         </GoogleMap>
       )}
 
       <Card style={{ width: "25rem" }}>
-        <div>hello world</div>
+        <div>{directions}</div>
       </Card>
     </div>
   );

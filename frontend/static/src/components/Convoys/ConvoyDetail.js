@@ -67,8 +67,7 @@ function ConvoyDetail({
       body: formData,
     };
     // Send the fetch request to the API endpoint for updating a note
-    // ---------------- Add this url path and make sure you're sending up all the correct fields
-    // ---------------- You can check what you're sending up in network
+
     const response = await fetch(
       `/api_v1/convoys/records/${recordId}/`,
       options
