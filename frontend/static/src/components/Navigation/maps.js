@@ -9,7 +9,9 @@ import {
   GoogleMap,
   DirectionsRenderer,
   useLoadScript,
+  InfoBox,
   MarkerF,
+  InfoWindow,
 } from "@react-google-maps/api";
 
 const SECRET_KEY = process.env.REACT_APP_GOOGLE_MAP_API_KEY;
@@ -22,6 +24,9 @@ const NavigationMap = () => {
   const [response, setResponse] = useState(null);
   const [directions, setDirections] = useState(null);
   const [infoBox, setInfoBox] = useState("");
+  const [distance, setDistance] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [instructions, setInstructions] = useState(0);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: SECRET_KEY,
@@ -40,7 +45,21 @@ const NavigationMap = () => {
       (result, status) => {
         if (status === "OK") {
           setResponse(result);
+
+          setDistance(result.routes[0].legs[0].distance.text);
+          setDuration(result.routes[0].legs[0].duration.text);
+
+          // const instructions = result.routes[0].legs[0].instructions;
+
+          const instructions = result.routes[0].legs[0].steps;
+
+          setInstructions(instructions.map((x) => x.instructions));
+
+          // make an api call that saves the route:
+          // setStartLat(result.routes[0].legs[0].start_location.lat())
+          // setStartLong(result.routes[0].legs[0].start_location.lng())
         }
+        console.log(result);
       }
     );
   };
@@ -49,15 +68,35 @@ const NavigationMap = () => {
     setDirections(directions);
   };
 
-  const center = {
+  const position = {
     lat: 29.9511,
     lng: -90.0715,
   };
+  const tmc = {
+    lat: 31.2043,
+    lng: -89.2254,
+  };
+  const forrestGeneral = {
+    lat: 31.3182,
+    lng: -89.3293,
+  };
+  const meritHealth = {
+    lat: 31.3262,
+    lng: -89.36685,
+  };
+  const mgFiringRange = {
+    lat: 31.123,
+    lng: -89.1526,
+  };
+
+  const onLoad = (marker) => {};
 
   const options = { closeBoxURL: "", enableEventPropagation: true };
 
-  const onLoad = (marker) => {
-    console.log("infoBox: ", marker);
+  const divStyle = {
+    background: `white`,
+    border: `1px solid #ccc`,
+    padding: 15,
   };
 
   if (loadError) return "Error loading maps";
@@ -88,16 +127,57 @@ const NavigationMap = () => {
             directions={response}
             onReady={handleDirectionsRender}
           />
-          <MarkerF
-            onLoad={onLoad}
-            options={options}
-            position={center}
-          ></MarkerF>
+          <InfoWindow style={divStyle} onLoad={onLoad} position={position}>
+            <div>
+              <h1>Info</h1>
+            </div>
+          </InfoWindow>
+          <InfoBox onLoad={onLoad} position={position} options={options}>
+            <div
+              style={{ backgroundColor: "blue", opacity: 0.55, padding: 12 }}
+            >
+              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
+                Start: Jackson Barracks
+              </div>
+            </div>
+          </InfoBox>
+          <InfoBox onLoad={onLoad} position={tmc} options={options}>
+            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
+                Start: Troop Medical Clinic
+              </div>
+            </div>
+          </InfoBox>
+          <InfoBox onLoad={onLoad} position={meritHealth} options={options}>
+            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
+                Start: Merit Health
+              </div>
+            </div>
+          </InfoBox>
+          <InfoBox onLoad={onLoad} position={forrestGeneral} options={options}>
+            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
+                Start: Forrest General Hospital
+              </div>
+            </div>
+          </InfoBox>
+          <InfoBox onLoad={onLoad} position={mgFiringRange} options={options}>
+            <div
+              style={{ backgroundColor: "yellow", opacity: 0.55, padding: 12 }}
+            >
+              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
+                Start: Machine Gun Range
+              </div>
+            </div>
+          </InfoBox>
         </GoogleMap>
       )}
 
       <Card style={{ width: "25rem" }}>
-        <div>{directions}</div>
+        <div>{distance}</div>
+        <div>{duration}</div>
+        <div>{`${instructions}`}</div>
       </Card>
     </div>
   );
