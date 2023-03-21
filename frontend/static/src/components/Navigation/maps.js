@@ -134,7 +134,7 @@ const NavigationMap = () => {
           </InfoWindow>
           <InfoBox onLoad={onLoad} position={position} options={options}>
             <div
-              style={{ backgroundColor: "blue", opacity: 0.55, padding: 12 }}
+              style={{ backgroundColor: "blue", opacity: 0.75, padding: 12 }}
             >
               <div style={{ fontSize: 12, fontColor: `#08233B` }}>
                 Start: Jackson Barracks
@@ -142,21 +142,21 @@ const NavigationMap = () => {
             </div>
           </InfoBox>
           <InfoBox onLoad={onLoad} position={tmc} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
               <div style={{ fontSize: 12, fontColor: `#08233B` }}>
                 Start: Troop Medical Clinic
               </div>
             </div>
           </InfoBox>
           <InfoBox onLoad={onLoad} position={meritHealth} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
               <div style={{ fontSize: 12, fontColor: `#08233B` }}>
                 Start: Merit Health
               </div>
             </div>
           </InfoBox>
           <InfoBox onLoad={onLoad} position={forrestGeneral} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.55, padding: 12 }}>
+            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
               <div style={{ fontSize: 12, fontColor: `#08233B` }}>
                 Start: Forrest General Hospital
               </div>
@@ -164,7 +164,7 @@ const NavigationMap = () => {
           </InfoBox>
           <InfoBox onLoad={onLoad} position={mgFiringRange} options={options}>
             <div
-              style={{ backgroundColor: "yellow", opacity: 0.55, padding: 12 }}
+              style={{ backgroundColor: "yellow", opacity: 0.75, padding: 12 }}
             >
               <div style={{ fontSize: 12, fontColor: `#08233B` }}>
                 Start: Machine Gun Range

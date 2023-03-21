@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { text } from "@fortawesome/fontawesome-svg-core";
+import { Alert } from "react-bootstrap";
 
 function Message({ message, ...props }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -43,8 +44,8 @@ function Message({ message, ...props }) {
       style={{ display: "block", position: "initial" }}
     >
       {message.role === "user" && (
-        <div
-          className="alert alert-warning col-md-3 float-md-end offset-md-9"
+        <Alert
+          className="chat-bubble-user  col-md-4 float-md-end offset-m-1"
           role="alert"
         >
           <h4>{message.username}</h4>
@@ -67,17 +68,17 @@ function Message({ message, ...props }) {
               Edit Message
             </Button>
           )}
-        </div>
+        </Alert>
       )}
       {message.role !== "user" && (
-        <div
+        <Alert
           id="chat-message"
           key={message.id}
-          className="chat-bubble float-md-start bg-primary offset-m-0"
+          className="chat-bubble-other col-md-4 float-md-start  offset-md-1"
         >
           <h4>{message.username}</h4>
           <p>{message.text}</p>
-        </div>
+        </Alert>
       )}
     </div>
   );
@@ -281,7 +282,8 @@ function ConvoyChat() {
           <Form.Label></Form.Label>
         </Card.Body>
       </Card>
-      <form
+      <Form
+        className="fixed-bottom addMessageForm"
         role="alert"
         aria-live="assertive"
         aria-atomic="true"
@@ -305,7 +307,7 @@ function ConvoyChat() {
             </button>
           </div>
         </div>
-      </form>
+      </Form>
 
       {messagesHTML}
     </div>

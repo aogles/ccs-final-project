@@ -111,3 +111,28 @@ p {
   max-height: 75px;
   max-width: 25rem;
 }
+
+.loginPage {
+  background-image: url(https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/335846077_497130949105369_6064003586942194601_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=NhpYRb2syJMAX-2mstl&_nc_ht=scontent-atl3-1.xx&oh=00_AfACc2hw4no24e41bvt5A30fMKZ0uYztUkDIWVdT1kflHQ&oe=641EDD6D);
+  min-height: 100vh;
+  min-width: 100vw;
+  color: white;
+
+  viewport-fit: cover;
+}
+
+.loginForm {
+  background-color: aliceblue;
+  height: 60%;
+  width: 60%;
+  margin: 15rem;
+  margin-top: 5rem;
+}
+
+.addMessageForm {
+  border: solid red 2px;
+}
+
+.chat-bubble-user {
+  bottom: 2rem;
+}
