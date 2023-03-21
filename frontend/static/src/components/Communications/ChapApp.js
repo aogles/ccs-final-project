@@ -19,7 +19,7 @@ function Message({ message, ...props }) {
   };
 
   const editHTML = (
-    <Form onSubmit={handleSubmit}>
+    <Form className="chatEditForm" onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Enter new message </Form.Label>
         <input
@@ -45,7 +45,8 @@ function Message({ message, ...props }) {
     >
       {message.role === "user" && (
         <Alert
-          className="chat-bubble-user  col-md-4 float-md-end offset-m-1"
+          id="chat-message"
+          className="chat-bubble-user  col-md-4 float-md-end offset-md-1"
           role="alert"
         >
           <h4>{message.username}</h4>
@@ -74,7 +75,7 @@ function Message({ message, ...props }) {
         <Alert
           id="chat-message"
           key={message.id}
-          className="chat-bubble-other col-md-4 float-md-start  offset-md-1"
+          className="chat-bubble-other col-md-4 float-md-start  offset-md-1 "
         >
           <h4>{message.username}</h4>
           <p>{message.text}</p>
@@ -245,12 +246,10 @@ function ConvoyChat() {
   ));
 
   return (
-    <div className="App">
-      {title}
-      {selectedChannel}
-
-      <Card className="channelform">
+    <div className="chat-app App ">
+      <Card className=" channelForm sticky-top mb-5">
         <Card.Header>
+          {selectedChannel}
           <Dropdown>
             <input
               className="channelinput"
@@ -283,30 +282,32 @@ function ConvoyChat() {
         </Card.Body>
       </Card>
       <Form
-        className="fixed-bottom addMessageForm"
-        role="alert"
-        aria-live="assertive"
-        aria-atomic="true"
         onSubmit={(e) => {
           e.preventDefault();
           console.log("submit");
         }}
       >
-        <div id="addMessage" className="toast-body">
+        <Form.Group
+          className="mb-5 fixed-bottom messageForm"
+          controlId="formBasicEmail"
+        >
           <input
+            id="addMessage"
             onChange={(e) => setCaption(e.target.value)}
             value={caption}
             type="text"
             name="caption"
             placeholder="Enter your message here"
           />
-          <div className="mt-2 pt-2 border-top">
-            <img src="" />
-            <button type="button" onClick={addMessage}>
-              add message
-            </button>
-          </div>
-        </div>
+          <Button
+            className=" messageButton mb-1  "
+            variant="primary"
+            type="submit"
+            onClick={addMessage}
+          >
+            Send
+          </Button>
+        </Form.Group>
       </Form>
 
       {messagesHTML}

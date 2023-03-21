@@ -1,4 +1,5 @@
 // import { useState } from "react";
+import parse from "html-react-parser";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -26,7 +27,7 @@ const NavigationMap = () => {
   const [infoBox, setInfoBox] = useState("");
   const [distance, setDistance] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [instructions, setInstructions] = useState(0);
+  const [instructions, setInstructions] = useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: SECRET_KEY,
@@ -59,7 +60,7 @@ const NavigationMap = () => {
           // setStartLat(result.routes[0].legs[0].start_location.lat())
           // setStartLong(result.routes[0].legs[0].start_location.lng())
         }
-        console.log(result);
+        console.log({ result });
       }
     );
   };
@@ -101,6 +102,16 @@ const NavigationMap = () => {
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading maps";
+
+  console.log({ instructions });
+
+  const instructionsHTML = instructions?.map((instruction, index) => (
+    <li key={index}>
+      <h2>Step {index + 1}</h2>
+      <p>{parse(instruction)}</p>
+    </li>
+  ));
+  console.log({ instructionsHTML });
 
   return (
     <div>
@@ -177,7 +188,7 @@ const NavigationMap = () => {
       <Card style={{ width: "25rem" }}>
         <div>{distance}</div>
         <div>{duration}</div>
-        <div>{`${instructions}`}</div>
+        <div>{instructionsHTML}</div>
       </Card>
     </div>
   );
