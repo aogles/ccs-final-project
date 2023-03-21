@@ -142,6 +142,23 @@ function ConvoyList() {
 
   return (
     <>
+      <Card>
+        <Card.Header className="infoHeading">
+          <h2>
+            <span>☆</span>Convoy Information
+          </h2>
+        </Card.Header>
+        <Card.Body
+          style={{
+            backgroundImage:
+              "url(https://api.army.mil/e2/c/images/2022/12/14/f0e963fa/size1.jpg)",
+          }}
+          className="infoHeaderImage"
+        >
+          Image goes Here
+        </Card.Body>
+      </Card>
+
       <RecordForm
         addRecord={addRecord}
         category={category}

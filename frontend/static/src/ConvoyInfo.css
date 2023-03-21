@@ -1,0 +1,14 @@
+.infoHeading {
+  height: 5rem;
+  background-color: black;
+
+  color: #ffcc01;
+  text-align: center;
+  font-family: allerta stencil;
+  font-weight: 400;
+}
+
+.infoHeaderImage {
+  background-image: 100vw;
+  height: 10rem;
+}

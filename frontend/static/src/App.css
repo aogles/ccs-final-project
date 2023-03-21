@@ -1,3 +1,5 @@
+@import url(ConvoyInfo.css);
+
 .App {
   text-align: center;
   background-color: rgb(165, 164, 164);
@@ -160,6 +162,20 @@ p {
   border: none;
 }
 
+.chatHeader {
+  background-color: black;
+  color: #ffcc01;
+  font-family: allerta stencil;
+}
+.chatMenu p {
+  position: relative;
+  color: #ffcc01;
+  font-family: allerta stencil;
+  font-size: 18px;
+  font-weight: 900;
+  top: -15px;
+}
+
 .chat-app {
   background-image: repeating-linear-gradient(
     to bottom right,
@@ -183,6 +199,50 @@ p {
   margin-left: 40rem;
 } */
 
+.togglebutton {
+  position: relative;
+
+  top: 5rem;
+  right: 8rem;
+}
+.channelInput {
+  position: relative;
+  height: 2rem;
+  right: -5rem;
+  border-radius: 5px;
+}
+
+.chatMenu {
+  height: 12rem;
+  background-color: black;
+  border-bottom: #ffcc01 solid 2px;
+}
+.chatMenu Button {
+  background-color: #ffcc01;
+  color: black;
+  font-family: allerta stencil;
+}
+.channelform {
+  background-color: black;
+}
+#convoychatmenu {
+  background-image: url(https://api.army.mil/e2/c/images/2022/11/09/a3fc43b0/size1.jpg);
+  max-width: 100%;
+  border-bottom: #ffcc01 solid 1px;
+}
+.chatEditForm {
+  border: #ffcc01 solid 2px;
+  max-width: 30rem;
+  background-color: rgb(2, 41, 3);
+  margin-left: 30rem;
+  border-radius: 10px;
+  color: #f2f3f5;
+}
+.chatEditForm input {
+  width: 25rem;
+  border-radius: 10px;
+}
+
 @media screen and (max-width: 900px) {
   #chat-message {
     position: relative;
@@ -203,5 +263,11 @@ p {
     position: relative;
     top: 35px;
     left: 170px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .chatEditForm {
+    margin-left: 2rem;
   }
 }

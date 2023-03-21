@@ -5,8 +5,10 @@ import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { text } from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import { Alert } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function Message({ message, ...props }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -247,40 +249,45 @@ function ConvoyChat() {
 
   return (
     <div className="chat-app App ">
-      <Card className=" channelForm sticky-top mb-5">
-        <Card.Header>
+      <div></div>
+      <Card id="convoychatmenu" className="channelform sticky-top d-mb-5">
+        <Card.Body className="chatHeader">
+          <h2 className="chatHeader">
+            <span>☆</span> Convoy Chat
+          </h2>
+        </Card.Body>
+        <Card.Header className="chatMenu">
+          <p>Select a Convoy from the dropdown</p>
           {selectedChannel}
           <Dropdown>
             <input
-              className="channelinput"
+              className="channelInput"
               onChange={(e) => setTitle(e.target.value)}
               type="text"
               value={title}
               name="title"
-              placeholder="add a chat group"
+              placeholder="Add a new Convoy Chat"
             ></input>
-            <button
-              className="channelbutton"
+            <Button
+              className="channelbutton channelInput"
               type="button"
               onClick={addChannel}
             >
-              Add a Chat Group
-            </button>
+              Submit
+            </Button>
             <Dropdown.Toggle
               className="togglebutton"
               variant="success"
               id="dropdown-basic"
             >
-              Chat Groups
+              Convoy Chat Groups
             </Dropdown.Toggle>
 
             <Dropdown.Menu>{channelsHTML}</Dropdown.Menu>
           </Dropdown>
         </Card.Header>
-        <Card.Body>
-          <Form.Label></Form.Label>
-        </Card.Body>
       </Card>
+      <div className="chatPage"></div>
       <Form
         onSubmit={(e) => {
           e.preventDefault();
