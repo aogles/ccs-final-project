@@ -1,7 +1,7 @@
 from django.urls import path, include
 
 # AdminDetailInformationListAPIView
-from .views import MessageListAPIView, ChannelListAPIView, InformationListAPIView, AdminInformationListAPIView
+from .views import MessageListAPIView, ChannelListAPIView, ConvoyDetailAPIView, ConvoyListAPIView, ConvoyCategoryRecordAPIView, ConvoyCategoryRecordDetailAPIView
 from .views import MessageDetailAPIView, ChannelDetailAPIView
 
 
@@ -15,13 +15,17 @@ urlpatterns = [
     path('messages/', MessageListAPIView.as_view()),
     # used for retrieving, updating or deleting a specific channel by its primary key pk.
     # The HTTP methods that are allowed on this endpoint are GET, PUT, PATCH and DELETE.
-    path('<int:pk>/', ChannelDetailAPIView.as_view()),
+    path('channels/<int:pk>/', ChannelDetailAPIView.as_view()),
     # This endpoint is used for creating a new channel or retrieving a list of channels.
     # The HTTP methods that are allowed on this endpoint are GET and POST.
-    path('', ChannelListAPIView.as_view()),
-    path('notes/', InformationListAPIView.as_view()),
-    path('notes/<int:pk>/', AdminInformationListAPIView.as_view()),
+    path('channels/', ChannelListAPIView.as_view()),
+    # path('notes/', InformationListAPIView.as_view()),
+    # path('notes/<int:pk>/', AdminInformationDetailAPIView.as_view()),
 
+    path('convoys/records/', ConvoyCategoryRecordAPIView.as_view()),
+    path('convoys/records/<int:pk>/', ConvoyCategoryRecordDetailAPIView.as_view()),
+    path('convoys/<int:pk>/', ConvoyDetailAPIView.as_view()),
+    path('convoys/', ConvoyListAPIView.as_view()),
 
-
+    # Add a url path for updating your convoys
 ]

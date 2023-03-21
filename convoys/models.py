@@ -27,7 +27,15 @@ class Message(models.Model):
         return self.text[:100]
 
 
-class Information(models.Model):
+class Convoy(models.Model):
+    text = models.CharField(max_length=30)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.text
+
+
+class ConvoyCategoryRecord(models.Model):
     OPTION_A = 'safety'
     OPTION_B = 'vehicle-info'
     OPTION_C = 'convoy-checklist'
@@ -37,11 +45,16 @@ class Information(models.Model):
         (OPTION_B, 'vehicle-info'),
         (OPTION_C, 'convoy-checklist'),
     ]
+
     category = models.CharField(
         max_length=20, choices=CATEGORY_CHOICES, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, blank=True, null=True)
+    convoy = models.ForeignKey(
+        Convoy, on_delete=models.CASCADE, blank=True, null=True, related_name="records")
     title = models.CharField(max_length=255)
-    body = models.TextField()
-    image = models.ImageField(upload_to='images/', blank=True)
+    message = models.TextField()
+    image = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return self.title[:50]

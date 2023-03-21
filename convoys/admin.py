@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Navigation, Channel, Message, Information
+from .models import Convoy, ConvoyCategoryRecord, Navigation, Channel, Message
 # from django_google_maps import widgets as map_widgets
 # from django_google_maps import fields as map_fields
 
@@ -10,7 +10,11 @@ from .models import Navigation, Channel, Message, Information
 #     }
 
 # Register your models here.
+
+admin.site.register(Convoy)
+admin.site.register(ConvoyCategoryRecord)
+
+
 admin.site.register(Navigation)
 admin.site.register(Channel)
 admin.site.register(Message)
-admin.site.register(Information)
