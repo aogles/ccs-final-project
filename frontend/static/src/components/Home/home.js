@@ -53,7 +53,7 @@ function Homepage() {
         <Card id="card1" style={{ width: "30rem" }}>
           <Card.Img
             variant="top"
-            src="/Assets/F7C361DE-5EDB-4FCC-9D95-C9855DE6F8B7_1_105_c.jpeg"
+            src="https://api.army.mil/e2/c/images/2023/03/15/a32ad678/size1.jpg"
           />
           <Card.Body>
             <Card.Title>
@@ -103,7 +103,7 @@ function Homepage() {
         <Card id="card1" style={{ width: "30rem" }}>
           <Card.Img
             variant="top"
-            src="/Assets/A98DC86F-2529-4885-93C6-FF45AD2123CB_1_105_c.jpeg"
+            src="https://api.army.mil/e2/c/images/2023/02/13/2dbab785/size1.jpg"
           />
           <Card.Body>
             <Card.Title>
@@ -126,7 +126,10 @@ function Homepage() {
           </Card.Body>
         </Card>
         <Card id="card1" style={{ width: "30rem" }}>
-          <Card.Img variant="top" src="/Assets/IMG_7929.jpg" />
+          <Card.Img
+            variant="top"
+            src="https://api.army.mil/e2/c/images/2022/12/21/25a08dab/size1.jpg"
+          />
           <Card.Body>
             <Card.Title>
               <h2>Card Title </h2>
