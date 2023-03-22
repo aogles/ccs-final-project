@@ -1,0 +1,12 @@
+#article1 {
+  position: relative;
+  margin: 15rem;
+  max-width: 500rem;
+
+  min-height: 30rem;
+}
+
+.articleimg {
+  height: 200px;
+  width: 200px;
+}

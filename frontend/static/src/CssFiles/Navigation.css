@@ -46,3 +46,12 @@
   margin-top: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+@media screen and (min-width: 800px) {
+  #googlemap,
+  #directionscard {
+    margin-left: 35rem;
+    min-width: 60rem;
+    min-height: 50rem;
+  }
+}

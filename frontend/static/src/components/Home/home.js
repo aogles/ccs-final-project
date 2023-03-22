@@ -21,8 +21,8 @@ function Homepage() {
         </Carousel.Item>
         <Carousel.Item id="pic2">
           <img
-            className="d-block w-100"
-            src="./documentation/homephotos/812B8DDF-F670-4BB1-ABE7-99DF69FA6C7A_1_105_c.jpeg"
+            className="Home1"
+            src="frontend/static/public/Assets/F7C361DE-5EDB-4FCC-9D95-C9855DE6F8B7_1_105_c.jpeg"
             alt="Second slide"
           />
 
@@ -45,25 +45,46 @@ function Homepage() {
         </Carousel.Item>
       </Carousel>
 
-      <div className="article-section">
-        <Row xs={1} md={1} className="g-5">
-          {Array.from({ length: 6 }).map((_, idx) => (
-            <Col>
-              <Card>
-                <Card.Img variant="top" src="holder.js/100px160" />
-                <Card.Body>
-                  <Card.Title>Card title</Card.Title>
-                  <Card.Text>
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content. This content is a
-                    little bit longer.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+      <div id="article1">
+        <Card id="article1">
+          <h2>Hello</h2>
+          <img
+            className="articleimg"
+            variant="top"
+            src="https://api.army.mil/e2/c/images/2022/12/14/f0e963fa/size1.jpg"
+            alt=""
+          />
+          <p>lorem </p>
+        </Card>
       </div>
+      <Card className="article2">
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>lorem</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card className="article3">
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>lorem</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card className="article4">
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>lorem</Card.Text>
+        </Card.Body>
+      </Card>
+      <Card className="article5">
+        <Card.Img variant="top" src="holder.js/100px160" />
+        <Card.Body>
+          <Card.Title>Card title</Card.Title>
+          <Card.Text>lorem</Card.Text>
+        </Card.Body>
+      </Card>
     </>
   );
 }
