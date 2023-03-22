@@ -23,8 +23,15 @@ NavLink {
   border: solid 1px black;
 }
 Navbar {
-  background-color: #221f20;
+  background-color: #000000;
   min-height: 6rem;
+}
+#navbar h1 {
+  color: #f2f3f5;
+  font-family: allerta stencil;
+}
+#navbar span {
+  color: #ffcc01;
 }
 
 .App-header {
@@ -107,23 +114,50 @@ p {
 }
 
 .loginPage {
-  background-image: no-repeat;
-  height: 90vh;
+  background-image: repeating-linear-gradient(
+    to bottom right,
 
+    rgb(120, 79, 7),
+    rgb(40, 68, 2),
+    rgb(232, 218, 178)
+  );
+  height: 100vh;
+  font-family: allerta stencil;
   color: white;
-  background-size: 100% 100%;
+}
+@media screen and (max-width: 900px) {
+  .loginForm {
+    position: relative;
+    left: -33rem;
+    top: 5rem;
+    min-width: 30rem;
+  }
 }
 
 .loginForm {
   background-color: rgb(244, 241, 231);
-  height: 60%;
-  width: 60%;
+  height: 45%;
+  width: 45%;
   margin: 15rem;
   margin-top: 5rem;
+  margin-left: 35rem;
   opacity: 0.9;
   border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: black;
+}
+
+.registrationpage {
+  background-image: repeating-linear-gradient(
+    to bottom right,
+
+    rgb(120, 79, 7),
+    rgb(40, 68, 2),
+    rgb(232, 218, 178)
+  );
+  height: 100vh;
+  font-family: allerta stencil;
+  color: white;
 }
 
 .addMessageForm {

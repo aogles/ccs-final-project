@@ -1,12 +1,92 @@
-#article1 {
-  position: relative;
-  margin: 15rem;
-  max-width: 500rem;
-
-  min-height: 30rem;
+#homeheading {
+  height: 5rem;
+  color: #ffcc01;
+  background-color: black;
+  font-family: allerta stencil;
+  text-align: center;
 }
 
-.articleimg {
-  height: 200px;
-  width: 200px;
+.homedeaderimage {
+  height: 30rem;
+  opacity: 0.8;
+  border-bottom: #ffcc01 solid 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.homedeaderimage h1 {
+  position: relative;
+  color: #ffcc01;
+  font-size: 55px;
+  top: 15rem;
+  opacity: 1;
+}
+
+#homesubheading {
+  background-color: whitesmoke;
+  color: rgb(32, 32, 32);
+  font-family: allerta stencil;
+  height: 12rem;
+}
+.subcard1 {
+  margin-left: 30rem;
+  margin-top: -0.8rem;
+}
+.subcard2 {
+  margin-left: 50rem;
+  margin-top: -7rem;
+}
+.subcard3 {
+  margin-top: -7.2rem;
+  margin-left: 70rem;
+}
+
+#homearticles {
+  margin-top: 5rem;
+}
+
+#card1 {
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 2.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#card1 h2 {
+  text-align: center;
+  font-family: allerta stencil;
+}
+
+#card1 h3 {
+  color: #ffcc01;
+  font-family: allerta stencil;
+  text-align: center;
+  font-size: 20px;
+}
+#card1 p {
+  text-align: center;
+}
+#card1 Button {
+  color: black;
+  background-color: #ffcc01;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+@media screen and (min-width: 900px) {
+  #card1 {
+    position: relative;
+    top: 5rem;
+    min-width: 45rem;
+    margin-left: 40rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .subcard1,
+  .subcard2,
+  .subcard3 {
+    max-width: 10rem;
+    max-height: 5rem;
+    left: -30rem;
+    margin: 0;
+  }
 }

@@ -40,13 +40,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div
-        className="loginPage"
-        style={{
-          backgroundImage:
-            "url(https://api.army.mil/e2/c/images/2023/03/20/b237b0fc/max1200.jpg)",
-        }}
-      >
+      <div className="loginPage">
         <h1>Welcome to Convoy Commander</h1>
         <div className="loginForm">
           <Form onSubmit={handleSubmit}>

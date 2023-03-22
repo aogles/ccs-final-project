@@ -12,7 +12,9 @@ const AuthenticatedHeader = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ml-auto">
-          <FontAwesomeIcon icon={faStar} />
+          <h1>
+            <span>☆ </span>U.S ARMY
+          </h1>
           <Button>
             <NavLink to="/login">Login</NavLink>
           </Button>
