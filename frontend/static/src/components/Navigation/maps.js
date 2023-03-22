@@ -25,8 +25,8 @@ const NavigationMap = () => {
   const [response, setResponse] = useState(null);
   const [directions, setDirections] = useState(null);
   const [infoBox, setInfoBox] = useState("");
-  const [distance, setDistance] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [distance, setDistance] = useState("");
+  const [duration, setDuration] = useState("");
   const [instructions, setInstructions] = useState([]);
 
   const { isLoaded, loadError } = useLoadScript({
@@ -115,22 +115,43 @@ const NavigationMap = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Card>
+        <Card.Header id="navigationheadertext" sticky="top">
+          <h2>
+            <span>☆</span>Convoy Navigation
+          </h2>
+        </Card.Header>
+        <Card.Body
+          style={{
+            backgroundImage:
+              "url(https://api.army.mil/e2/c/images/2023/01/25/37e8ff96/max1200.jpg)",
+          }}
+          className="navigationheaderimage"
+        >
+          <p>Please enter your convoy origin and destination to begin</p>
+        </Card.Body>
+      </Card>
+
+      <Form className="navigationform" onSubmit={handleSubmit}>
+        <Form.Control
           type="text"
           value={origin}
           onChange={(e) => setOrigin(e.target.value)}
+          placeholder="Convoy Origin"
         />
-        <input
+        <Form.Control
           type="text"
           value={destination}
           onChange={(e) => setDestination(e.target.value)}
+          placeholder="Convoy Destination"
         />
-        <button type="submit">Get Directions</button>
-      </form>
+        <Button type="submit">Get Directions</Button>
+      </Form>
       {response && (
         <GoogleMap
-          mapContainerStyle={{ height: "400px", width: "400px" }}
+          id="googlemap"
+          className="googlemap"
+          mapContainerStyle={{ height: "600px", width: "600px" }}
           center={response.routes[0].legs[0].start_location}
           zoom={10}
         >
@@ -185,7 +206,11 @@ const NavigationMap = () => {
         </GoogleMap>
       )}
 
-      <Card style={{ width: "25rem" }}>
+      <Card
+        id="directionscard"
+        className="directionscard"
+        style={{ width: "25rem" }}
+      >
         <div>{distance}</div>
         <div>{duration}</div>
         <div>{instructionsHTML}</div>

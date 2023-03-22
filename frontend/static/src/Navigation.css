@@ -1,0 +1,48 @@
+#navigationheadertext {
+  background-color: black;
+  color: #ffcc01;
+  text-align: center;
+  font-family: allerta stencil;
+  height: 5rem;
+}
+.navigationheaderimage {
+  height: 25rem;
+  opacity: 0.7;
+  border-bottom: #ffcc01 solid 6px;
+}
+.navigationheaderimage p {
+  color: #ffcc01;
+  font-size: 25px;
+  text-align: center;
+  font-family: allerta stencil;
+  font-weight: 400;
+  opacity: 1;
+}
+.navigationform Button {
+  background-color: #ffcc01;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
+  color: black;
+}
+.navigationform {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  max-width: 50rem;
+}
+
+#googlemap {
+  position: relative;
+  max-width: 30rem;
+  margin-top: 10rem;
+  margin-left: 2.5rem;
+  border: solid #ffcc01 10px;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+#directionscard {
+  position: relative;
+  width: 60rem;
+  margin-left: 5rem;
+  margin-top: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
