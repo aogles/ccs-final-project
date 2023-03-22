@@ -17,11 +17,11 @@
 #navbar Button,
 NavLink {
   color: black;
-  background-color: rgb(244, 203, 39);
+  background-color: #ffcc01;
   border: solid 1px black;
 }
 Navbar {
-  background-color: black;
+  background-color: #221f20;
   min-height: 6rem;
 }
 
@@ -64,8 +64,13 @@ Navbar {
   margin-left: 15px;
   left: 15%;
   margin-top: 5%;
-  border: solid rgb(103, 102, 102) 1px;
-  background-color: rgb(244, 203, 39);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
+  border-radius: 7px;
+  height: 3rem;
+  min-width: 6rem;
+  max-width: 10rem;
+  background-color: #ffcc01;
 }
 
 @media screen and (min-width: 900px) {

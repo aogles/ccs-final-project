@@ -12,13 +12,13 @@ function ConvoyForm({ addConvoy }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className="convoyaddform" onSubmit={handleSubmit}>
       <input
         onChange={(e) => setText(e.target.value)}
         value={text}
         type="text"
         className="text"
-        placeholder="Enter Convoy Notes Here"
+        placeholder="Create a new convoy"
       />
       <Button type="submit" variant="primary">
         Submit

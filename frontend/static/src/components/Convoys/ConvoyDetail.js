@@ -18,7 +18,7 @@ function ConvoyDetail({
   title,
   message,
 }) {
-  const categories = ["safety", "vehicle-info", "convoy-checklist"];
+  const categories = ["Safety", "Vehicle Info", "Convoy Checklist"];
   const [category, setCategory] = useState(categories[0]);
   const [isEditing, setIsEditing] = useState(false);
   const [newMessage, setNewMessage] = useState(message);
@@ -112,7 +112,7 @@ function ConvoyDetail({
         {isEditing ? (
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Enter new note </Form.Label>
+              <Form.Label>Enter new text for note </Form.Label>
               <Form.Control
                 id={record.id}
                 type="text"
@@ -121,7 +121,7 @@ function ConvoyDetail({
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label> New image </Form.Label>
+              <Form.Label> Select new image (Optional) </Form.Label>
               <input
                 type="file"
                 accept="image/png, image/jpeg"
@@ -183,7 +183,11 @@ function ConvoyDetail({
     ));
   return (
     <>
-      <h2>{selectedConvoyDetail.text}</h2>
+      <div id="convoyname">
+        {" "}
+        <h2>{selectedConvoyDetail.text}</h2>
+      </div>
+
       {categoryFilters}
       {records && recordsHTML}
       {deleteRecord}

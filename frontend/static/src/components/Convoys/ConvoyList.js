@@ -131,6 +131,7 @@ function ConvoyList() {
 
   const convoyHTML = convoys.map((convoy) => (
     <Dropdown.Item
+      className="convoytoggle"
       key={convoy.id}
       type="button"
       onClick={() => setSelectedConvoyId(convoy.id)}
@@ -143,7 +144,7 @@ function ConvoyList() {
   return (
     <>
       <Card>
-        <Card.Header className="infoHeading">
+        <Card.Header id="infoHeading" sticky="top">
           <h2>
             <span>☆</span>Convoy Information
           </h2>
@@ -151,11 +152,15 @@ function ConvoyList() {
         <Card.Body
           style={{
             backgroundImage:
-              "url(https://api.army.mil/e2/c/images/2022/12/14/f0e963fa/size1.jpg)",
+              "url(https://api.army.mil/e2/c/images/2022/10/21/ba22d1b8/max1200.jpg)",
           }}
-          className="infoHeaderImage"
+          className="infoHeaderImage sticky-top"
         >
-          Image goes Here
+          {/* <img
+            className="infoHeaderImage"
+            src="https://api.army.mil/e2/c/images/2022/12/14/f0e963fa/size1.jpg"
+            alt=""
+          />  */}
         </Card.Body>
       </Card>
 
@@ -167,8 +172,12 @@ function ConvoyList() {
         setConvoys={setConvoys}
       />
       <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Select Convoy
+        <Dropdown.Toggle
+          className="convoytoggle"
+          variant="success"
+          id="dropdown-basic"
+        >
+          Select a Convoy
         </Dropdown.Toggle>
         <Dropdown.Menu>{convoyHTML}</Dropdown.Menu>
       </Dropdown>

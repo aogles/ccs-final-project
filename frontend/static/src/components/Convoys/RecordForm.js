@@ -21,6 +21,7 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
   };
   const convoyHTML = convoys.map((convoy) => (
     <Dropdown.Item
+      id="selectconvoybutton"
       key={convoy.id}
       type="button"
       onClick={() => {
@@ -32,9 +33,11 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
   ));
   //   console.log(category);
   return (
-    <Accordion defaultActiveKey="0">
+    <Accordion id="recordform" defaultActiveKey="0">
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Add new convoy note</Accordion.Header>
+        <Accordion.Header id="recordformheader">
+          Add a new note for your convoy
+        </Accordion.Header>
         <Accordion.Body>
           <Form onSubmit={handleSubmit}>
             <Dropdown>
@@ -77,9 +80,9 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
                 id="exampleFormControlSelect1"
               >
                 <option>Select a note category </option>
-                <option>safety</option>
-                <option>vehicle-info</option>
-                <option>convoy-checklist</option>
+                <option>Safety</option>
+                <option>Vehicle Info</option>
+                <option>Convoy Checklist</option>
               </select>
             </div>
             <Button type="submit">Add Convoy Notes</Button>
