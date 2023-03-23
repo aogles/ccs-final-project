@@ -8,7 +8,7 @@
 }
 
 .infoHeaderImage {
-  height: 20rem;
+  height: 10rem;
 }
 
 #recordform Button {
@@ -17,10 +17,23 @@
   font-family: allerta stencil;
 }
 
+#recordform {
+  border: black solid 2px;
+}
+.recordform {
+  border: black solid 2px;
+  background-color: rgb(208, 208, 208);
+}
+
+.convoybody {
+  margin-top: -20rem;
+  height: 200rem;
+}
+
 .convoyaddform {
   position: relative;
   margin-left: 10rem;
-  top: -35px;
+  top: 17.5rem;
 }
 
 .convoyaddform input {
@@ -39,11 +52,66 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.convoytoggle {
-  background-color: black;
+#selectconvoyheader {
+  background-color: #ffcc01;
+  color: black;
+  font-size: 30px;
+  font-family: allerta stencil;
 }
 
-#convoyname h2 {
+.convoytoggle {
+  background-color: black;
+  top: 20px;
+}
+#convoydropdown {
+  top: 20rem;
+}
+
+#convoyname h2,
+h4 {
   font-family: allerta stencil;
   font-size: 40px;
+  text-align: center;
+  margin-top: 20rem;
+}
+
+.category-buttons {
+  position: relative;
+  left: 40rem;
+  margin: 5rem;
+  margin-top: 5%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
+  border-radius: 7px;
+  height: 4rem;
+  min-width: 6rem;
+  max-width: 10rem;
+  background-color: #ffcc01;
+}
+
+#info-img {
+  max-height: 30rem;
+}
+@media screen and (min-width: 900px) {
+  #info-img {
+    max-height: 20rem;
+    max-width: 20rem;
+    margin-left: 55rem;
+    border: solid;
+    margin: 15px;
+  }
+}
+
+#info-card {
+  margin: 10%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  left: 8rem;
+}
+
+#recordformheader {
+  height: 30px;
+  margin-bottom: 2px;
+  text-align: center;
+  background-color: #ffcc01;
+  font-family: allerta stencil;
 }

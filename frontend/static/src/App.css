@@ -24,12 +24,24 @@
   font-weight: 500;
 }
 
-#navbar Button,
-NavLink {
+#navbar Button {
+  position: relative;
   color: black;
   background-color: #ffcc01;
   border: solid 1px black;
+  margin-left: 65rem;
+  left: 6rem;
 }
+#navlinks {
+  font-size: 20px;
+  position: relative;
+  color: #ffcc01;
+  text-align: center;
+  padding-left: 40px;
+  top: 35px;
+  font-family: allerta stencil;
+}
+
 Navbar {
   background-color: #000000;
   min-height: 6rem;
@@ -53,53 +65,20 @@ Navbar {
   color: white;
 }
 
-#info-img {
-  max-height: 30rem;
-}
-@media screen and (min-width: 900px) {
-  #info-img {
-    max-height: 20rem;
-    max-width: 20rem;
-    margin-left: 55rem;
-    border: solid;
-    margin: 15px;
-  }
-}
-
-#info-card {
-  margin: 10%;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
 #message-input {
   min-height: 7rem;
   overflow-wrap: break-word;
 }
 
-.category-buttons {
-  position: relative;
-  margin-left: 15px;
-  left: 15%;
-  margin-top: 5%;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border: none;
-  border-radius: 7px;
-  height: 3rem;
-  min-width: 6rem;
-  max-width: 10rem;
-  background-color: #ffcc01;
-}
-
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 900px) {
   .category-buttons {
     min-height: 60px;
     min-width: 80px;
     margin-left: 50rem;
     left: 50px;
-    border: solid;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     margin: 15px;
-    border: solid grey 0.5px;
-    border-radius: 5%;
+    border: none;
   }
 }
 

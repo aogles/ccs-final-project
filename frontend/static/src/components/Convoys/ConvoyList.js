@@ -143,53 +143,61 @@ function ConvoyList() {
 
   return (
     <>
-      <Card>
-        <Card.Header id="infoHeading" sticky="top">
-          <h2>
-            <span>☆</span>Convoy Information
-          </h2>
-        </Card.Header>
-        <Card.Body
-          style={{
-            backgroundImage:
-              "url(https://api.army.mil/e2/c/images/2022/10/21/ba22d1b8/max1200.jpg)",
-          }}
-          className="infoHeaderImage sticky-top"
-        >
-          {/* <img
+      <main>
+        <Card className="sticky-top">
+          <Card.Header id="infoHeading">
+            <h2>
+              <span>☆</span>Convoy Information
+            </h2>
+          </Card.Header>
+          <Card.Body
+            style={{
+              backgroundImage:
+                "url(https://api.army.mil/e2/c/images/2022/10/21/ba22d1b8/max1200.jpg)",
+            }}
+            className="infoHeaderImage "
+          >
+            {/* <img
             className="infoHeaderImage"
             src="https://api.army.mil/e2/c/images/2022/12/14/f0e963fa/size1.jpg"
             alt=""
           />  */}
-        </Card.Body>
-      </Card>
+          </Card.Body>
+        </Card>
+        <Card.Header id="selectconvoyheader">
+          Select an existing convoy from below, or create a new one
+        </Card.Header>
+        <div className="convoybody">
+          <RecordForm
+            addRecord={addRecord}
+            category={category}
+            setCategory={setCategory}
+            convoys={convoys}
+            setConvoys={setConvoys}
+          />
 
-      <RecordForm
-        addRecord={addRecord}
-        category={category}
-        setCategory={setCategory}
-        convoys={convoys}
-        setConvoys={setConvoys}
-      />
-      <Dropdown>
-        <Dropdown.Toggle
-          className="convoytoggle"
-          variant="success"
-          id="dropdown-basic"
-        >
-          Select a Convoy
-        </Dropdown.Toggle>
-        <Dropdown.Menu>{convoyHTML}</Dropdown.Menu>
-      </Dropdown>
-      <ConvoyForm addConvoy={addConvoy} />
-      {selectedConvoyDetail && (
-        <ConvoyDetail
-          selectedConvoyDetail={selectedConvoyDetail}
-          records={records}
-          selectedConvoyId={selectedConvoyId}
-          setRecords={setRecords}
-        />
-      )}
+          <Dropdown id="convoydropdown">
+            <Dropdown.Toggle
+              className="convoytoggle"
+              variant="success"
+              id="dropdown-basic"
+            >
+              Select a Convoy
+            </Dropdown.Toggle>
+            <Dropdown.Menu>{convoyHTML}</Dropdown.Menu>
+          </Dropdown>
+          <ConvoyForm addConvoy={addConvoy} />
+          {selectedConvoyDetail && (
+            <ConvoyDetail
+              selectedConvoyDetail={selectedConvoyDetail}
+              records={records}
+              selectedConvoyId={selectedConvoyId}
+              setRecords={setRecords}
+            />
+          )}
+          <Card.Footer id="convoyformfooter"></Card.Footer>
+        </div>
+      </main>
     </>
   );
 }

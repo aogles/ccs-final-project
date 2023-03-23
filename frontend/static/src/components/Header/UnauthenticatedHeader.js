@@ -15,6 +15,9 @@ const UnauthenticatedHeader = () => {
         <Nav className="ml-auto">
           <NavLink to="/registration">Register</NavLink>
           <NavLink to="/login">Login</NavLink>
+          <NavLink id="navlinks" to="/">
+            Home
+          </NavLink>
 
           {/* <NavLink to="/InformationForm">Create your own Article</NavLink> */}
         </Nav>

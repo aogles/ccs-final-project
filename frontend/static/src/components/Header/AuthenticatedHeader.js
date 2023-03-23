@@ -15,30 +15,24 @@ const AuthenticatedHeader = () => {
           <h1>
             <span>☆ </span>U.S ARMY
           </h1>
-          <Button>
-            <NavLink to="/login">Login</NavLink>
-          </Button>
-
-          <Button>
-            <NavLink to="/registration">Register</NavLink>
-          </Button>
 
           {/* <NavLink to="/InformationForm">Create your own Article</NavLink> */}
-          <Button>
-            <NavLink to="/">Home</NavLink>
-          </Button>
 
-          <Button>
-            <NavLink to="nav">Navigation</NavLink>
-          </Button>
+          <NavLink id="navlinks" to="/">
+            Home
+          </NavLink>
 
-          <Button>
-            <NavLink to="convoys">Convoy Information</NavLink>
-          </Button>
+          <NavLink id="navlinks" to="nav">
+            Navigation
+          </NavLink>
 
-          <Button>
-            <NavLink to="comms">Convoy Chat</NavLink>
-          </Button>
+          <NavLink id="navlinks" to="convoys">
+            Convoy Information
+          </NavLink>
+
+          <NavLink id="navlinks" to="comms">
+            Convoy Chat
+          </NavLink>
 
           <Button onClick={logout}>Logout</Button>
         </Nav>
