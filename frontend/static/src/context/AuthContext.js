@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(null);
+  const [isStaff, setIsStaff] = useState(null);
   const navigate = useNavigate();
   const handleError = (err) => {
     console.warn(err);
@@ -28,6 +29,7 @@ export const AuthContextProvider = ({ children }) => {
     const data = await response.json();
     Cookies.set("Authorization", `Token ${data.key}`);
     setIsAuth(true);
+    setIsStaff(data.is_staff);
     navigate("/");
   };
 
@@ -49,6 +51,7 @@ export const AuthContextProvider = ({ children }) => {
     const data = await response.json();
     Cookies.set("Authorization", `Token ${data.key}`);
     setIsAuth(true);
+    setIsStaff(data.is_staff);
     navigate("/");
   };
 
@@ -79,10 +82,13 @@ export const AuthContextProvider = ({ children }) => {
 
       if (!response.ok) {
         setIsAuth(false);
+        setIsStaff(false);
         return;
       }
+      const data = await response.json();
 
       setIsAuth(true);
+      setIsStaff(data.is_staff);
     };
 
     getUser();
