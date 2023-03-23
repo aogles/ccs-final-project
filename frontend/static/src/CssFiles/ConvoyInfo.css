@@ -26,8 +26,6 @@
 }
 
 .convoybody {
-  margin-top: -20rem;
-  height: 200rem;
 }
 
 .convoyaddform {
@@ -64,7 +62,7 @@
   top: 20px;
 }
 #convoydropdown {
-  top: 20rem;
+  top: -6.3rem;
 }
 
 #convoyname h2,
@@ -72,7 +70,7 @@ h4 {
   font-family: allerta stencil;
   font-size: 40px;
   text-align: center;
-  margin-top: 20rem;
+  margin-top: 4rem;
 }
 
 .category-buttons {
@@ -105,7 +103,6 @@ h4 {
 #info-card {
   margin: 10%;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  left: 8rem;
 }
 
 #recordformheader {
@@ -114,4 +111,43 @@ h4 {
   text-align: center;
   background-color: #ffcc01;
   font-family: allerta stencil;
+}
+
+#infonavlink {
+  background-color: black;
+  color: #ffcc01;
+}
+
+.addconvoybutton {
+  position: relative;
+  margin-left: 2rem;
+  left: 7.8rem;
+  top: -8.8rem;
+}
+
+#infochatlink {
+  position: relative;
+  margin: 2rem;
+  left: 26.8rem;
+  top: -2rem;
+  background-color: black;
+  color: #ffcc01;
+}
+
+#infomaplink {
+  position: relative;
+  margin: 2rem;
+  left: 23rem;
+  top: -2rem;
+  background-color: black;
+  color: #ffcc01;
+}
+
+#infoaddform {
+  position: relative;
+  background-color: black;
+  color: #ffcc01;
+
+  left: 27rem;
+  top: 21.5rem;
 }

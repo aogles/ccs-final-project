@@ -2,6 +2,8 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTruckFront, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function ConvoyForm({ addConvoy }) {
   const [text, setText] = useState("");
@@ -23,8 +25,14 @@ function ConvoyForm({ addConvoy }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        +
+      <Button
+        className="addconvoybutton"
+        id="infonavlink"
+        variant="primary"
+        onClick={handleShow}
+      >
+        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon icon={faTruckFront} />
       </Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

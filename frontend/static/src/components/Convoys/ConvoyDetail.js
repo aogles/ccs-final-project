@@ -186,7 +186,10 @@ function ConvoyDetail({
       <div id="convoyname">
         {" "}
         <h2>{selectedConvoyDetail.text}</h2>
-        <h4>Select a category to view notes</h4>
+        <h4>
+          From: ({selectedConvoyDetail.origin}) To: (
+          {selectedConvoyDetail.destination})
+        </h4>
       </div>
 
       {categoryFilters}
