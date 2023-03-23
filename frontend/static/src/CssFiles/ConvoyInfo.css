@@ -58,7 +58,10 @@
 }
 
 .convoytoggle {
-  background-color: black;
+  background-color: rgb(3, 82, 7);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
   top: 20px;
 }
 #convoydropdown {
@@ -69,8 +72,15 @@
 h4 {
   font-family: allerta stencil;
   font-size: 40px;
-  text-align: center;
-  margin-top: 4rem;
+  text-align: left;
+  margin-top: 2rem;
+}
+
+#archivebutton {
+  background-color: rgb(3, 82, 7);
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-left: 2rem;
 }
 
 .category-buttons {
@@ -147,7 +157,7 @@ h4 {
   position: relative;
   background-color: black;
   color: #ffcc01;
-
+  margin-bottom: 1rem;
   left: 27rem;
-  top: 21.5rem;
+  top: 20rem;
 }

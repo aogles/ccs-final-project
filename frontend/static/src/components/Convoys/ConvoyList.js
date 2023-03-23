@@ -99,7 +99,6 @@ function ConvoyList() {
   if (!convoys) {
     return <Spinner animation="border" variant="success" />;
   }
-
   const addRecord = async ({ message, title, image, category, convoy }) => {
     // event.preventDefault();
     const formData = new FormData();
@@ -131,6 +130,33 @@ function ConvoyList() {
     // console.log(selectedConvoyDetail);
     // console.log(data);
     // updatedConvoyDetail.records.push(data);
+  };
+  const archiveConvoy = async (id) => {
+    // setIsActive(false);
+
+    const options = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      body: JSON.stringify({
+        is_active: false,
+      }),
+    };
+    const response = await fetch(`/api_v1/convoys/${id}/`, options);
+    if (!response.ok) {
+      throw new Error("network repsonse not ok.");
+    }
+    const data = await response.json();
+    const updatedConvoys = [...convoys];
+    const index = updatedConvoys.findIndex(
+      (convoy) => convoy.id === selectedConvoyId
+    );
+    updatedConvoys.splice(index, 1);
+    setConvoys(updatedConvoys);
+    setSelectedConvoyId(null);
+    setSelectedConvoyDetail(null);
   };
 
   const convoySelectHTML = convoys.map((convoy) => (
@@ -210,6 +236,7 @@ function ConvoyList() {
             records={records}
             selectedConvoyId={selectedConvoyId}
             setRecords={setRecords}
+            archiveConvoy={archiveConvoy}
           />
         </>
       )}

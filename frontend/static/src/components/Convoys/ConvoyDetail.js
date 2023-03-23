@@ -17,6 +17,7 @@ function ConvoyDetail({
   image,
   title,
   message,
+  archiveConvoy,
 }) {
   const categories = ["Safety", "Vehicle Info", "Convoy Checklist"];
   const [category, setCategory] = useState(categories[0]);
@@ -25,6 +26,8 @@ function ConvoyDetail({
   const [newTitle, setNewTitle] = useState(title);
   const [newImage, setNewImage] = useState(image);
   const [recordId, setRecordId] = useState("");
+  const [isActive, setIsActive] = useState(true);
+
   console.log(selectedConvoyId);
   console.log(newMessage);
   let recordsHTML;
@@ -185,7 +188,15 @@ function ConvoyDetail({
     <>
       <div id="convoyname">
         {" "}
-        <h2>{selectedConvoyDetail.text}</h2>
+        <h2>
+          {selectedConvoyDetail.text}
+          <Button
+            id="archivebutton"
+            onClick={() => archiveConvoy(selectedConvoyId)}
+          >
+            Archive
+          </Button>
+        </h2>
         <h4>
           From: ({selectedConvoyDetail.origin}) To: (
           {selectedConvoyDetail.destination})
