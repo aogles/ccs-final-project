@@ -4,15 +4,25 @@ import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { library } from "@fortawesome/fontawesome-svg-core";
+
 import { Alert } from "react-bootstrap";
+
+import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMessage,
+  faPlus,
+  faPencil,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 function Message({ message, ...props }) {
   const [isEditing, setIsEditing] = useState(false);
   const [text, setText] = useState(message.id);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +31,31 @@ function Message({ message, ...props }) {
   };
 
   const editHTML = (
+    // <Modal show={show} onHide={handleClose}>
+    //   <Modal.Header closeButton>
+    //     <Modal.Title>Enter new message</Modal.Title>
+    //   </Modal.Header>
+    //   <Modal.Body>
+    //     <Form>
+    //       <Form.Group className="mb-3" controlId="text">
+    //         <Form.Control
+    //           id={message.id}
+    //           type="text"
+    //           value={text}
+    //           onChange={(e) => setText(e.target.value)}
+    //         />
+    //       </Form.Group>
+    //     </Form>
+    //   </Modal.Body>
+    //   <Modal.Footer>
+    //     <Button variant="secondary" onClick={() => setIsEditing(false)}>
+    //       Close
+    //     </Button>
+    //     <Button type="submit" variant="primary" onSubmit={handleSubmit}>
+    //       Save edits
+    //     </Button>
+    //   </Modal.Footer>
+    // </Modal>
     <Form className="chatEditForm" onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Enter new message </Form.Label>
@@ -31,7 +66,7 @@ function Message({ message, ...props }) {
           onChange={(e) => setText(e.target.value)}
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      <Button variant="success" type="submit">
         Save
       </Button>
       <Button type="button" onClick={() => setIsEditing(false)}>
@@ -55,20 +90,20 @@ function Message({ message, ...props }) {
           <p>{message.text}</p>
           {(message.role === "user" || message.role === "admin") && (
             <Button
-              variant="secondary"
+              variant="success"
               type="button"
               onClick={() => props.deleteMessage(message.id)}
             >
-              Delete Message
+              <FontAwesomeIcon icon={faTrashCan} />
             </Button>
           )}
           {(message.role === "user" || message.role === "admin") && (
             <Button
-              variant="secondary"
+              variant="success"
               type="button"
               onClick={() => setIsEditing(true)}
             >
-              Edit Message
+              <FontAwesomeIcon icon={faPencil} />
             </Button>
           )}
         </Alert>
@@ -96,6 +131,10 @@ function ConvoyChat() {
   const [messages, setMessages] = useState([]);
   const [selectedChannel, setSelectedChannel] = useState(null);
   const [updatedCaption, setUpdatedCaption] = useState(caption);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const getChannels = async () => {
@@ -148,6 +187,7 @@ function ConvoyChat() {
     const data = await response.json();
 
     setChannels([...channels, data]);
+    handleClose();
   };
 
   const addMessage = async (channel) => {
@@ -192,7 +232,7 @@ function ConvoyChat() {
   };
 
   const editMessage = async ({ id, text }) => {
-    // setIsEditing(true);
+    //setIsEditing(true);
 
     const response = await fetch(`/api_v1/messages/${id}/`, {
       method: "PUT",
@@ -255,26 +295,47 @@ function ConvoyChat() {
           <h2 className="chatHeader">
             <span>☆</span> Communications
           </h2>
-          <p>Select a chat group from the dropdown</p>
+          <p>Select a chat group from the dropdown or start a new group</p>
         </Card.Body>
         <Card.Header className="chatMenu">
           {selectedChannel}
+
+          <Button
+            className="addchatgroupbutton"
+            id="infonavlink"
+            variant="dark"
+            onClick={handleShow}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            <FontAwesomeIcon icon={faMessage} />
+          </Button>
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Add group name</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                <Form.Group className="mb-3" controlId="text">
+                  <Form.Control
+                    onChange={(e) => setTitle(e.target.value)}
+                    type="text"
+                    value={title}
+                    name="title"
+                    placeholder="Add a new Convoy Chat"
+                  />
+                </Form.Group>
+              </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button type="submit" variant="primary" onClick={addChannel}>
+                Create group
+              </Button>
+            </Modal.Footer>
+          </Modal>
           <Dropdown>
-            <input
-              className="channelInput"
-              onChange={(e) => setTitle(e.target.value)}
-              type="text"
-              value={title}
-              name="title"
-              placeholder="Add a new Convoy Chat"
-            ></input>
-            <Button
-              className="channelbutton channelInput"
-              type="button"
-              onClick={addChannel}
-            >
-              Submit
-            </Button>
             <Dropdown.Toggle
               className="togglebutton"
               variant="success"
@@ -307,8 +368,9 @@ function ConvoyChat() {
             placeholder="Enter your message here"
           />
           <Button
-            className=" messageButton mb-1  "
-            variant="primary"
+            variant="success"
+            id="messageButton"
+            className="messageButton m-0"
             type="submit"
             onClick={addMessage}
           >

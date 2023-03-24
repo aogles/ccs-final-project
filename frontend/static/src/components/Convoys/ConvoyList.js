@@ -25,8 +25,8 @@ function ConvoyList() {
   const [selectedConvoyDetail, setSelectedConvoyDetail] = useState(null);
   const [records, setRecords] = useState(null);
   const [category, setCategory] = useState("");
-  // const [title, setTitle] = useState("");
-  // const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getConvoys = async () => {
@@ -200,13 +200,13 @@ function ConvoyList() {
       <div>
         <Dropdown id="convoydropdown">
           <Dropdown.Toggle className="convoytoggle" id="dropdown-basic">
-            Select a Convoy
+            Select a convoy
           </Dropdown.Toggle>
           <Dropdown.Menu>{convoySelectHTML}</Dropdown.Menu>
         </Dropdown>
         <ConvoyForm addConvoy={addConvoy} />
       </div>
-      {selectedConvoyDetail && records && (
+      {selectedConvoyDetail && (
         <>
           <div className="convoybody">
             <RecordForm

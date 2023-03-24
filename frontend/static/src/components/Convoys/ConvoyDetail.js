@@ -41,7 +41,7 @@ function ConvoyDetail({
     editRecord();
     setIsEditing(false);
   };
-  const deleteRecord = async (id) => {
+  const deleteRecord = async () => {
     const response = await fetch(`/api_v1/convoys/records/${id}/`, {
       method: "DELETE",
       headers: {
@@ -54,7 +54,7 @@ function ConvoyDetail({
     setRecords(records.filter((record) => record.id !== id));
   };
 
-  const editRecord = async () => {
+  const editRecord = async (id) => {
     setIsEditing(true);
     const formData = new FormData();
 
@@ -174,18 +174,17 @@ function ConvoyDetail({
                   Delete Note
                 </Button>
               )}
-              {isStaff && (
-                <Button
-                  variant="secondary"
-                  type="button"
-                  onClick={() => {
-                    setIsEditing(true);
-                    setRecordId(record.id);
-                  }}
-                >
-                  Edit Note
-                </Button>
-              )}
+
+              <Button
+                variant="secondary"
+                type="button"
+                onClick={() => {
+                  setIsEditing(true);
+                  setRecordId(record.id);
+                }}
+              >
+                Edit Note
+              </Button>
             </Card.Body>
           </Card>
         )}
@@ -213,6 +212,7 @@ function ConvoyDetail({
       {categoryFilters}
       {records && recordsHTML}
       {deleteRecord}
+      {editRecord}
     </>
   );
 }

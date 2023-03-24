@@ -22,13 +22,13 @@ function App() {
       {isAuth ? <AuthenticatedHeader /> : <UnauthenticatedHeader />}
 
       <Routes>
+        <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/registration" element={<RegistrationForm />} />
         <Route path="/" element={<ProtectedRoute />}>
           <Route path="nav" element={<NavigationMap />} />
           <Route path="convoys" element={<ConvoyList />} />
           <Route path="comms" element={<ConvoyChat />} />
-          <Route index element={<Homepage />} />
         </Route>
 
         {/* <Route path="/InformationForm" element={<InformationForm />} /> */}

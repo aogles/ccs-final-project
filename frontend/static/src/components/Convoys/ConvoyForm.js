@@ -28,7 +28,7 @@ function ConvoyForm({ addConvoy }) {
       <Button
         className="addconvoybutton"
         id="infonavlink"
-        variant="primary"
+        variant="success"
         onClick={handleShow}
       >
         <FontAwesomeIcon icon={faPlus} />

@@ -36,13 +36,14 @@ const LoginForm = () => {
   };
 
   if (isAuth) {
-    return <Navigate to="/" />;
+    return <Navigate to="convoys" />;
   }
 
   return (
     <>
       <div className="loginPage">
         <h1>Welcome to Convoy Commander</h1>
+        <p>Please login below or register for an account</p>
         <div className="loginForm">
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formBasicUsername">

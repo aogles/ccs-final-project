@@ -11,9 +11,40 @@
   background-color: rgb(208, 208, 208);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#logo {
+  text-decoration: none;
+  background-color: #000000;
+  text-align: center;
+  height: 1rem;
+  font-family: allerta stencil;
+}
+#logo span {
+  color: white;
+  background-color: #000000;
+  text-align: center;
+}
+#logo h1 {
+  color: #ffcc01;
+  text-align: center;
+}
+#registerlink,
+#loginlink {
+  color: #000000;
+  margin: 1rem;
+  text-decoration: none;
+  top: -5rem;
+  font-size: 20px;
+}
+
+#homelink {
+  color: #000000;
+  margin: 1rem;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+.basic-navbar-nav {
+  color: #000000;
 }
 .registrationheader h1 {
   color: #000000;
@@ -22,6 +53,10 @@
 .registrationheader span {
   color: #ffcc01;
   font-weight: 500;
+}
+
+.summarycard {
+  border: #ffcc01 solid 2px;
 }
 
 #navbar Button {
@@ -40,6 +75,7 @@
   text-align: center;
   /* padding-left: 40px; */
   top: -20px;
+  margin: 1rem;
   font-family: allerta stencil;
 }
 
@@ -102,11 +138,13 @@
   }
 }
 
-#carousel-home {
-  position: relative;
-  height: 200px;
-
-  border: solid red 1px;
+#homeheading {
+  height: 12rem;
+  text-align: center;
+}
+#homeheading h1 {
+  margin-top: 3rem;
+  font-size: 45px;
 }
 
 #carousel-home h2,
@@ -130,26 +168,33 @@ p {
   );
   height: 100vh;
   font-family: allerta stencil;
-  color: white;
+  color: rgb(232, 218, 178);
+  text-align: center;
+}
+.loginPage p {
+  text-align: center;
+  color: rgb(232, 218, 178);
+  font-size: 20px;
 }
 @media screen and (max-width: 900px) {
   .loginForm {
     position: relative;
-    left: -33rem;
+    left: -34rem;
     top: 5rem;
-    min-width: 30rem;
+    min-width: 32rem;
+    min-height: 35rem;
   }
 }
 
 .loginForm {
   background-color: rgb(244, 241, 231);
   height: 45%;
-  width: 45%;
-  margin: 15rem;
+  width: 50%;
+  text-align: left;
   margin-top: 5rem;
   margin-left: 35rem;
   opacity: 0.9;
-  border-radius: 25px;
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: black;
 }
@@ -165,6 +210,10 @@ p {
   height: 100vh;
   font-family: allerta stencil;
   color: white;
+}
+
+.registrationform {
+  margin: 2rem;
 }
 
 .addMessageForm {
@@ -214,6 +263,12 @@ p {
   top: -15px;
 }
 
+.addchatgroupbutton {
+  position: relative;
+  left: 4rem;
+  top: 7.5rem;
+}
+
 .chat-app {
   background-image: repeating-linear-gradient(
     to bottom right,
@@ -231,16 +286,17 @@ p {
   min-height: 3rem;
   border-radius: 25px;
 }
-/* .messageButton {
+.messageButton {
   max-width: 10rem;
   margin-left: 40rem;
-} */
+  background-color: #ffcc01;
+}
 
 .togglebutton {
   position: relative;
 
   top: 5rem;
-  right: 8rem;
+  right: 5rem;
 }
 .channelInput {
   position: relative;
@@ -258,12 +314,15 @@ p {
   background-color: #ffcc01;
   color: black;
   font-family: allerta stencil;
+  margin-left: 60px;
+  align-self: center;
 }
 .channelform {
   background-color: black;
 }
 #convoychatmenu {
   background-image: url(https://api.army.mil/e2/c/images/2022/11/09/a3fc43b0/size1.jpg);
+
   max-width: 100%;
   border-bottom: #ffcc01 solid 1px;
 }

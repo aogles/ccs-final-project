@@ -140,10 +140,12 @@ h4 {
 
 .addconvoybutton {
   position: relative;
-  margin-left: 2rem;
-  left: 6.8rem;
   top: -1rem;
-  border: none;
+  margin-right: 1rem;
+  left: 10rem;
+  background-color: #ffcc01;
+  color: #000000;
+  border: black;
 }
 
 #infochatlink {

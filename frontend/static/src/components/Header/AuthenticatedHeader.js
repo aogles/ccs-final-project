@@ -10,9 +10,14 @@ const AuthenticatedHeader = () => {
   const { logout } = useContext(AuthContext);
   return (
     <>
-      <h1 to="/">
-        <span>☆ </span>U.S ARMY
-      </h1>
+      <Navbar>
+        <NavLink id="logo" to="/">
+          <h1>
+            <span>☆ </span>U.S ARMY
+          </h1>
+        </NavLink>
+      </Navbar>
+
       <Navbar id="navbar" expand="lg">
         <Navbar.Toggle
           id="navtoggle"
