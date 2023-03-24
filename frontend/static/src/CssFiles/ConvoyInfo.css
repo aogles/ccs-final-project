@@ -60,6 +60,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
   top: 20px;
+  max-height: 3rem;
 }
 #convoydropdown {
   top: 1.3rem;
@@ -125,6 +126,10 @@ h4 {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
+#info-card Button {
+  margin: 0.5rem;
+}
+
 #recordformheader {
   height: 30px;
   margin-bottom: 2px;
@@ -142,7 +147,7 @@ h4 {
   position: relative;
   top: -1rem;
   margin-right: 1rem;
-  left: 10rem;
+  left: 9rem;
   background-color: #ffcc01;
   color: #000000;
   border: black;
@@ -171,6 +176,7 @@ h4 {
   background-color: black;
   color: #ffcc01;
   margin-bottom: 1rem;
+
   left: 27rem;
-  top: 19rem;
+  top: 19.5rem;
 }

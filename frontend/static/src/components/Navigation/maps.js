@@ -34,13 +34,16 @@ const NavigationMap = () => {
     libraries,
   });
 
+  //const origin = { lat: 29.959786, lng: -90.006175 };
+  //const destination = { lat: 31.197533, lng: -89.205635 };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const directionsService = new window.google.maps.DirectionsService();
     directionsService.route(
       {
-        origin,
-        destination,
+        origin: { lat: 29.959786, lng: -90.006175 },
+        destination: { lat: 31.197533, lng: -89.205635 },
         travelMode: "DRIVING",
       },
       (result, status) => {
@@ -183,9 +186,9 @@ const NavigationMap = () => {
         className="directionscard"
         style={{ width: "25rem" }}
       >
-        <h3>{distance}</h3>
-        <h3>{duration}</h3>
-        <p>{instructionsHTML}</p>
+        <h3>Distamce: {distance}</h3>
+        <h3>Duration: {duration}</h3>
+        <li>{instructionsHTML}</li>
       </Card>
     </div>
   );

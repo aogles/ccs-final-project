@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }) => {
     Cookies.set("Authorization", `Token ${data.key}`);
     setIsAuth(true);
     setIsStaff(data.is_staff);
-    navigate("/");
+    navigate("/convoys");
   };
 
   const registration = async (user) => {

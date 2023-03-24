@@ -9,6 +9,13 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMessage,
+  faPlus,
+  faPencil,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 
 function ConvoyDetail({
   selectedConvoyDetail,
@@ -170,7 +177,7 @@ function ConvoyDetail({
                   type="button"
                   onClick={() => deleteRecord(record.id)}
                 >
-                  Delete Note
+                  <FontAwesomeIcon icon={faTrashCan} />
                 </Button>
               )}
               {isStaff && (
@@ -182,7 +189,7 @@ function ConvoyDetail({
                     setRecordId(record.id);
                   }}
                 >
-                  Edit Note
+                  <FontAwesomeIcon icon={faPencil} />
                 </Button>
               )}
             </Card.Body>

@@ -50,6 +50,7 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
     <>
       {isStaff && (
         <Button className="infoaddform" id="infoaddform" onClick={handleShow}>
+          <div>Add note </div>
           <FontAwesomeIcon icon={faFilePen} />
         </Button>
       )}
@@ -60,12 +61,12 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
 
         <Modal.Body>
           <Form>
-            <div class="mb-3">
-              <label for="formFile" class="form-label">
+            <div className="mb-3">
+              <label htmlFor="formFile" className="form-label">
                 Select an image
               </label>
               <input
-                class="form-control image"
+                className="form-control image"
                 type="file"
                 id="formFile"
                 accept="image/png, image/jpeg"

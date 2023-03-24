@@ -200,7 +200,9 @@ function ConvoyList() {
       <div>
         <Dropdown id="convoydropdown">
           <Dropdown.Toggle className="convoytoggle" id="dropdown-basic">
-            Select a convoy
+            {selectedConvoyDetail
+              ? selectedConvoyDetail.text
+              : "Select a convoy"}
           </Dropdown.Toggle>
           <Dropdown.Menu>{convoySelectHTML}</Dropdown.Menu>
         </Dropdown>

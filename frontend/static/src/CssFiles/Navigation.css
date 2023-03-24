@@ -1,3 +1,11 @@
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 #navigationheadertext {
   background-color: black;
   color: #ffcc01;
@@ -47,8 +55,26 @@
 
 #directionscard h3,
 p {
-  font-size: 18px;
+  font-size: 20px;
+  font-family: Raleway, sans-serif;
 }
+#directionscard li {
+  position: relative;
+  padding-inline-start: 0.5em;
+  padding-top: 1.5em;
+  border-bottom: 1px solid #48b2;
+  cursor: default;
+  transition: color 0.4s;
+  font-family: Raleway, sans-serif;
+  text-align: left;
+  box-shadow: 1px 2px 4px #0003;
+}
+
+::marker {
+  content: ">";
+  color: #48b;
+}
+
 @media screen and (min-width: 800px) {
   #googlemap,
   #directionscard {

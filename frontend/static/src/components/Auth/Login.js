@@ -79,13 +79,15 @@ const LoginForm = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="success" type="submit">
               Login
             </Button>
 
             <p>
               Don't have an account? Click
-              <NavLink to="/registration">here</NavLink>
+              <NavLink id="loginnavlink" to="/registration">
+                here
+              </NavLink>
               to register.
             </p>
           </Form>
