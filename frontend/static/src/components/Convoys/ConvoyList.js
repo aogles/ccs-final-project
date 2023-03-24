@@ -25,8 +25,8 @@ function ConvoyList() {
   const [selectedConvoyDetail, setSelectedConvoyDetail] = useState(null);
   const [records, setRecords] = useState(null);
   const [category, setCategory] = useState("");
-  const [title, setTitle] = useState("");
-  const [message, setMessage] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getConvoys = async () => {
@@ -99,7 +99,7 @@ function ConvoyList() {
   if (!convoys) {
     return <Spinner animation="border" variant="success" />;
   }
-  const addRecord = async ({ message, title, image, category, convoy }) => {
+  const addRecord = async ({ message, title, image, category }) => {
     // event.preventDefault();
     const formData = new FormData();
     if (image) {
@@ -108,7 +108,7 @@ function ConvoyList() {
     formData.append("title", title);
     formData.append("category", category);
     formData.append("message", message);
-    formData.append("convoy", convoy);
+    formData.append("convoy", selectedConvoyId);
     const options = {
       method: "POST",
       headers: {
@@ -122,9 +122,9 @@ function ConvoyList() {
     }
     const data = await response.json();
     setRecords([...records, data]);
-    setMessage("");
-    // setImage("");
-    setTitle("");
+    // setMessage("");
+    // // setImage("");
+    // setTitle("");
     // setCategory("");
     // updatedConvoyDetail = { ...selectedConvoyDetail };
     // console.log(selectedConvoyDetail);
@@ -197,23 +197,9 @@ function ConvoyList() {
         Select an existing convoy from below, or create a new one
       </Card.Header>
 
-      <Button className="chatlink " id="infochatlink">
-        <NavLink to="comms" id="infonavlink">
-          <FontAwesomeIcon icon={faComments} />
-        </NavLink>
-      </Button>
-      <Button className="maplink" id="infomaplink">
-        <NavLink id="infonavlink" to="nav">
-          <FontAwesomeIcon icon={faMapLocationDot} />
-        </NavLink>
-      </Button>
       <div>
         <Dropdown id="convoydropdown">
-          <Dropdown.Toggle
-            className="convoytoggle"
-            variant="success"
-            id="dropdown-basic"
-          >
+          <Dropdown.Toggle className="convoytoggle" id="dropdown-basic">
             Select a Convoy
           </Dropdown.Toggle>
           <Dropdown.Menu>{convoySelectHTML}</Dropdown.Menu>

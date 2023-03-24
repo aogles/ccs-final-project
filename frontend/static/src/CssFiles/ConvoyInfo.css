@@ -25,9 +25,6 @@
   background-color: rgb(208, 208, 208);
 }
 
-.convoybody {
-}
-
 .convoyaddform {
   position: relative;
   margin-left: 10rem;
@@ -65,7 +62,15 @@
   top: 20px;
 }
 #convoydropdown {
-  top: -6.3rem;
+  top: 1.3rem;
+  left: 15rem;
+}
+#convoydropdown Button {
+  top: 1.3rem;
+  left: 15rem;
+  background-color: rgb(3, 82, 7);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none;
 }
 
 #convoyname h2,
@@ -74,6 +79,11 @@ h4 {
   font-size: 40px;
   text-align: left;
   margin-top: 2rem;
+}
+#convoyname h4 {
+  font-family: allerta stencil;
+  font-size: 20px;
+  font-weight: 700;
 }
 
 #archivebutton {
@@ -131,8 +141,9 @@ h4 {
 .addconvoybutton {
   position: relative;
   margin-left: 2rem;
-  left: 7.8rem;
-  top: -8.8rem;
+  left: 6.8rem;
+  top: -1rem;
+  border: none;
 }
 
 #infochatlink {
@@ -159,5 +170,5 @@ h4 {
   color: #ffcc01;
   margin-bottom: 1rem;
   left: 27rem;
-  top: 20rem;
+  top: 19rem;
 }

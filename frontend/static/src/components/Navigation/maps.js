@@ -118,21 +118,15 @@ const NavigationMap = () => {
       <Card>
         <Card.Header id="navigationheadertext" sticky="top">
           <h2>
-            <span>☆</span>Convoy Navigation
+            <span>☆</span> Navigation
           </h2>
         </Card.Header>
-        <Card.Body
-          style={{
-            backgroundImage:
-              "url(https://api.army.mil/e2/c/images/2023/01/25/37e8ff96/max1200.jpg)",
-          }}
-          className="navigationheaderimage"
-        >
+        <Card.Body className="navigationheaderimage">
           <p>Please enter your convoy origin and destination to begin</p>
         </Card.Body>
       </Card>
 
-      <Form className="navigationform" onSubmit={handleSubmit}>
+      <Form className="  m-2 navigationform" onSubmit={handleSubmit}>
         <Form.Control
           type="text"
           value={origin}
@@ -159,50 +153,28 @@ const NavigationMap = () => {
             directions={response}
             onReady={handleDirectionsRender}
           />
-          <InfoWindow style={divStyle} onLoad={onLoad} position={position}>
-            <div>
-              <h1>Info</h1>
-            </div>
-          </InfoWindow>
-          <InfoBox onLoad={onLoad} position={position} options={options}>
-            <div
-              style={{ backgroundColor: "blue", opacity: 0.75, padding: 12 }}
-            >
-              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-                Start: Jackson Barracks
-              </div>
-            </div>
-          </InfoBox>
-          <InfoBox onLoad={onLoad} position={tmc} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
-              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-                Start: Troop Medical Clinic
-              </div>
-            </div>
-          </InfoBox>
-          <InfoBox onLoad={onLoad} position={meritHealth} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
-              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-                Start: Merit Health
-              </div>
-            </div>
-          </InfoBox>
-          <InfoBox onLoad={onLoad} position={forrestGeneral} options={options}>
-            <div style={{ backgroundColor: "red", opacity: 0.85, padding: 12 }}>
-              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-                Start: Forrest General Hospital
-              </div>
-            </div>
-          </InfoBox>
-          <InfoBox onLoad={onLoad} position={mgFiringRange} options={options}>
-            <div
-              style={{ backgroundColor: "yellow", opacity: 0.75, padding: 12 }}
-            >
-              <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-                Start: Machine Gun Range
-              </div>
-            </div>
-          </InfoBox>
+
+          <MarkerF
+            onLoad={onLoad}
+            position={position}
+            options={options}
+          ></MarkerF>
+          <MarkerF onLoad={onLoad} position={tmc} options={options}></MarkerF>
+          <MarkerF
+            onLoad={onLoad}
+            position={meritHealth}
+            options={options}
+          ></MarkerF>
+          <MarkerF
+            onLoad={onLoad}
+            position={forrestGeneral}
+            options={options}
+          ></MarkerF>
+          <MarkerF
+            onLoad={onLoad}
+            position={mgFiringRange}
+            options={options}
+          ></MarkerF>
         </GoogleMap>
       )}
 
@@ -211,9 +183,9 @@ const NavigationMap = () => {
         className="directionscard"
         style={{ width: "25rem" }}
       >
-        <div>{distance}</div>
-        <div>{duration}</div>
-        <div>{instructionsHTML}</div>
+        <h3>{distance}</h3>
+        <h3>{duration}</h3>
+        <p>{instructionsHTML}</p>
       </Card>
     </div>
   );

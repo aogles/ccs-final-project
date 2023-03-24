@@ -7,6 +7,8 @@ import Card from "react-bootstrap/Card";
 import Cookies from "js-cookie";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function ConvoyDetail({
   selectedConvoyDetail,
@@ -19,6 +21,8 @@ function ConvoyDetail({
   message,
   archiveConvoy,
 }) {
+  const { isStaff } = useContext(AuthContext);
+  console.log(isStaff);
   const categories = ["Safety", "Vehicle Info", "Convoy Checklist"];
   const [category, setCategory] = useState(categories[0]);
   const [isEditing, setIsEditing] = useState(false);
@@ -161,24 +165,27 @@ function ConvoyDetail({
               <Card.Text>{record.title}</Card.Text>
               <Card.Text>{record.message}</Card.Text>
 
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={() => deleteRecord(record.id)}
-              >
-                Delete Note
-              </Button>
-
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={() => {
-                  setIsEditing(true);
-                  setRecordId(record.id);
-                }}
-              >
-                Edit Note
-              </Button>
+              {isStaff && (
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => deleteRecord(record.id)}
+                >
+                  Delete Note
+                </Button>
+              )}
+              {isStaff && (
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setRecordId(record.id);
+                  }}
+                >
+                  Edit Note
+                </Button>
+              )}
             </Card.Body>
           </Card>
         )}
@@ -190,17 +197,17 @@ function ConvoyDetail({
         {" "}
         <h2>
           {selectedConvoyDetail.text}
-          <Button
-            id="archivebutton"
-            onClick={() => archiveConvoy(selectedConvoyId)}
-          >
-            Archive
-          </Button>
+          {isStaff && (
+            <Button
+              id="archivebutton"
+              onClick={() => archiveConvoy(selectedConvoyId)}
+            >
+              Archive Convoy
+            </Button>
+          )}
         </h2>
-        <h4>
-          From: ({selectedConvoyDetail.origin}) To: (
-          {selectedConvoyDetail.destination})
-        </h4>
+        <h4>From: ({selectedConvoyDetail.origin})</h4>
+        <h4>To: ({selectedConvoyDetail.destination})</h4>
       </div>
 
       {categoryFilters}

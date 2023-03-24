@@ -16,6 +16,7 @@ const INITIAL_STATE = {
 const LoginForm = () => {
   const { isAuth, login } = useContext(AuthContext);
   const [user, setUser] = useState(INITIAL_STATE);
+  console.log(user);
 
   const handleInput = (event) => {
     const { name, value } = event.target;
@@ -83,7 +84,7 @@ const LoginForm = () => {
 
             <p>
               Don't have an account? Click
-              <NavLink to="/register">here</NavLink>
+              <NavLink to="/registration">here</NavLink>
               to register.
             </p>
           </Form>

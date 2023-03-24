@@ -6,10 +6,13 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapLocationDot, faFilePen } from "@fortawesome/free-solid-svg-icons";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 import { Dropdown } from "react-bootstrap";
 
 function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
+  const { isStaff } = useContext(AuthContext);
   const [image, setImage] = useState(null);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
@@ -22,7 +25,7 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addRecord({ message, title, image, category, convoy });
+    addRecord({ message, title, image, category });
     handleClose();
     setConvoy("");
     setMessage("");
@@ -45,28 +48,30 @@ function RecordForm({ convoys, setConvoys, addRecord, category, setCategory }) {
   //   console.log(category);
   return (
     <>
-      <Button className="infoaddform" id="infoaddform" onClick={handleShow}>
-        <FontAwesomeIcon icon={faFilePen} />
-      </Button>
-
+      {isStaff && (
+        <Button className="infoaddform" id="infoaddform" onClick={handleShow}>
+          <FontAwesomeIcon icon={faFilePen} />
+        </Button>
+      )}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add a note for you convoy</Modal.Title>
         </Modal.Header>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            Select a Convoy
-          </Dropdown.Toggle>
-          <Dropdown.Menu>{convoyHTML}</Dropdown.Menu>
-        </Dropdown>
+
         <Modal.Body>
           <Form>
-            <input
-              type="file"
-              accept="image/png, image/jpeg"
-              className="image"
-              onChange={(e) => setImage(e.target.files[0])}
-            />
+            <div class="mb-3">
+              <label for="formFile" class="form-label">
+                Select an image
+              </label>
+              <input
+                class="form-control image"
+                type="file"
+                id="formFile"
+                accept="image/png, image/jpeg"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
 
             <Form.Group className="mb-3" controlId="origin">
               <Form.Label>Caption</Form.Label>

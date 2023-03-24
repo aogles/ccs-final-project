@@ -253,11 +253,11 @@ function ConvoyChat() {
       <Card id="convoychatmenu" className="channelform sticky-top d-mb-5">
         <Card.Body className="chatHeader">
           <h2 className="chatHeader">
-            <span>☆</span> Convoy Chat
+            <span>☆</span> Communications
           </h2>
+          <p>Select a chat group from the dropdown</p>
         </Card.Body>
         <Card.Header className="chatMenu">
-          <p>Select a Convoy from the dropdown</p>
           {selectedChannel}
           <Dropdown>
             <input
