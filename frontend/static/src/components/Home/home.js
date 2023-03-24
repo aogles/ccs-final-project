@@ -25,12 +25,13 @@ function Homepage() {
       </Card>
       <div id="homearticles">
         <Card id="card1" className="summarycard" style={{ width: "30rem" }}>
+          <h2>Brief Summary</h2>
           <p>
-            The army app is a mobile application designed to provide training
-            for convoy commanders. The app offers various features to help
-            convoy commanders learn and practice their skills, such as a virtual
-            map that simulates convoy routes and a communication platform for
-            coordinating with other members of the convoy.
+            The Convoy Commander app is a mobile application designed to provide
+            training for convoy commanders. The app offers various features to
+            help convoy commanders learn and practice their skills, such as a
+            virtual map that simulates convoy routes and a communication
+            platform for coordinating with other members of the convoy.
           </p>
           <p>
             The app includes an information page where leaders can plan, and

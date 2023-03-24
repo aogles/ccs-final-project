@@ -206,7 +206,7 @@ function ConvoyList() {
         </Dropdown>
         <ConvoyForm addConvoy={addConvoy} />
       </div>
-      {selectedConvoyDetail && (
+      {selectedConvoyDetail && records && (
         <>
           <div className="convoybody">
             <RecordForm

@@ -38,10 +38,10 @@ function ConvoyDetail({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    editRecord();
+    editRecord(id);
     setIsEditing(false);
   };
-  const deleteRecord = async () => {
+  const deleteRecord = async (id) => {
     const response = await fetch(`/api_v1/convoys/records/${id}/`, {
       method: "DELETE",
       headers: {
@@ -118,11 +118,11 @@ function ConvoyDetail({
       <div key={record.id}>
         {isEditing ? (
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Group className="m-1-mb-3" controlId="formBasicEmail">
               <Form.Label>Enter new text for note </Form.Label>
               <Form.Control
                 id={record.id}
-                type="text"
+                type="textarea"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
               />
@@ -164,7 +164,6 @@ function ConvoyDetail({
             <Card.Body>
               <Card.Text>{record.title}</Card.Text>
               <Card.Text>{record.message}</Card.Text>
-
               {isStaff && (
                 <Button
                   variant="secondary"
@@ -174,17 +173,18 @@ function ConvoyDetail({
                   Delete Note
                 </Button>
               )}
-
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={() => {
-                  setIsEditing(true);
-                  setRecordId(record.id);
-                }}
-              >
-                Edit Note
-              </Button>
+              {isStaff && (
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => {
+                    setIsEditing(true);
+                    setRecordId(record.id);
+                  }}
+                >
+                  Edit Note
+                </Button>
+              )}
             </Card.Body>
           </Card>
         )}
