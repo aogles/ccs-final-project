@@ -186,7 +186,7 @@ const NavigationMap = () => {
         className="directionscard"
         style={{ width: "25rem" }}
       >
-        <h3>Distamce: {distance}</h3>
+        <h3>Distance: {distance}</h3>
         <h3>Duration: {duration}</h3>
         <li>{instructionsHTML}</li>
       </Card>
