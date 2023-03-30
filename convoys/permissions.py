@@ -9,6 +9,9 @@ class IsAuthOrAdmin(permissions.BasePermission):
         if request.method == 'DELETE':
             return obj.user == request.user or request.user.is_superuser
 
+        if request.method == 'PATCH':
+            return obj.user == request.user or request.user.is_superuser
+
         return obj.user == request.user
 
 

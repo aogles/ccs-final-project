@@ -103,10 +103,17 @@
   top: -1rem;
 }
 
+@media screen and (min-width: 600px) {
+  #logoutbutton .logoutbutton {
+    position: relative;
+    left: -20rem;
+  }
+}
+
 @media screen and (min-width: 700px) {
   #navbar Button {
     position: relative;
-    left: 67rem;
+    left: 15rem;
   }
 }
 

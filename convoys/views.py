@@ -70,6 +70,12 @@ class ConvoyListAPIView(generics.ListCreateAPIView):
     queryset = Convoy.objects.all()
     serializer_class = ConvoyListSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(user=self.request.user)
+
     def get_queryset(self):
         queryset = Convoy.objects.all()
         is_active = self.request.query_params.get('is_active')
@@ -81,12 +87,16 @@ class ConvoyListAPIView(generics.ListCreateAPIView):
 class ConvoyDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Convoy.objects.all()
     serializer_class = ConvoyDetailSerializer
+    permission_classes = (IsAuthOrAdmin,)
 
     def perform_update(self, serializer):
-        pass
+        serializer.save()
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
     def perform_destroy(self, serializer):
-        pass
+        serializer.save(user=self.request.user)
 
 
 class ConvoyCategoryRecordAPIView(generics.ListCreateAPIView):

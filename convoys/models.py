@@ -30,20 +30,24 @@ class Message(models.Model):
 class Convoy(models.Model):
     text = models.CharField(max_length=30)
     is_active = models.BooleanField(default=True)
+    origin = models.CharField(max_length=255)
+    destination = models.CharField(max_length=255)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.text
 
 
 class ConvoyCategoryRecord(models.Model):
-    OPTION_A = 'safety'
-    OPTION_B = 'vehicle-info'
-    OPTION_C = 'convoy-checklist'
+    OPTION_A = 'Safety'
+    OPTION_B = 'Vehicle Info'
+    OPTION_C = 'Convoy Checklist'
 
     CATEGORY_CHOICES = [
-        (OPTION_A, 'safety'),
-        (OPTION_B, 'vehicle-info'),
-        (OPTION_C, 'convoy-checklist'),
+        (OPTION_A, 'Safety'),
+        (OPTION_B, 'Vehicle Info'),
+        (OPTION_C, 'Convoy Checklist'),
     ]
 
     category = models.CharField(
