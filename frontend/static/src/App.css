@@ -296,7 +296,7 @@ p {
   background-color: rgb(245, 240, 240);
   min-width: 30rem;
   margin-right: 1rem;
-
+  min-height: 3rem;
   border-radius: 25px;
 }
 .messageButton {
@@ -364,14 +364,19 @@ p {
 @media screen and (max-width: 900px) {
   #addMessage {
     position: relative;
-    top: 5rem;
+    top: 4.8rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  #addMessage input {
+    min-height: 3.5rem;
   }
 }
 
 @media screen and (max-width: 900px) {
   .messageButton {
     position: relative;
-    top: 35px;
+    top: 34px;
     left: 170px;
   }
 }
