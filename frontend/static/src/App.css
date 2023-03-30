@@ -277,7 +277,8 @@ p {
 .addchatgroupbutton {
   position: relative;
   left: 4rem;
-  top: 7.5rem;
+  top: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .chat-app {
@@ -291,10 +292,11 @@ p {
 }
 
 #addMessage {
+  position: relative;
   background-color: rgb(245, 240, 240);
   min-width: 30rem;
   margin-right: 1rem;
-  min-height: 3rem;
+
   border-radius: 25px;
 }
 .messageButton {
@@ -306,8 +308,9 @@ p {
 .togglebutton {
   position: relative;
 
-  top: 5rem;
+  top: -2rem;
   right: 5rem;
+  margin-bottom: 2rem;
 }
 .channelInput {
   position: relative;
@@ -327,6 +330,7 @@ p {
   font-family: allerta stencil;
   margin-left: 60px;
   align-self: center;
+  margin-top: 0rem;
 }
 .channelform {
   background-color: black;
@@ -361,7 +365,6 @@ p {
   #addMessage {
     position: relative;
     top: 5rem;
-    margin-top: 10rem;
   }
 }
 
@@ -382,7 +385,7 @@ p {
 @media screen and (max-width: 700px) {
   .chat-bubble-other {
     position: relative;
-
+    margin-bottom: 2rem;
     left: 1rem;
   }
 }
@@ -390,6 +393,10 @@ p {
 @media screen and (max-width: 700px) {
   .chat-bubble-user {
     position: relative;
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
+}
+
+#deletebutton {
+  position: relative;
 }

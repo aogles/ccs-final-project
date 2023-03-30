@@ -45,7 +45,7 @@ function ConvoyDetail({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    editRecord(id);
+    editRecord(records.id);
     setIsEditing(false);
   };
   const deleteRecord = async (id) => {
@@ -128,7 +128,7 @@ function ConvoyDetail({
             <Form.Group className="m-1-mb-3" controlId="formBasicEmail">
               <Form.Label>Enter new text for note </Form.Label>
               <Form.Control
-                id={record.id}
+                id={id}
                 type="textarea"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
@@ -146,7 +146,7 @@ function ConvoyDetail({
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Enter new caption </Form.Label>
               <Form.Control
-                id={record.id}
+                id={id}
                 className="todo-text"
                 type="text"
                 value={newTitle}
@@ -186,6 +186,7 @@ function ConvoyDetail({
                   type="button"
                   onClick={() => {
                     setIsEditing(true);
+                    editRecord(record.id);
                     setRecordId(record.id);
                   }}
                 >

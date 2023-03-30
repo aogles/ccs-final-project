@@ -90,6 +90,7 @@ function Message({ message, ...props }) {
           <p>{message.text}</p>
           {(message.role === "user" || message.role === "admin") && (
             <Button
+              id="deletebutton"
               variant="success"
               type="button"
               onClick={() => props.deleteMessage(message.id)}
@@ -99,6 +100,7 @@ function Message({ message, ...props }) {
           )}
           {(message.role === "user" || message.role === "admin") && (
             <Button
+              id="editbutton"
               variant="success"
               type="button"
               onClick={() => setIsEditing(true)}
