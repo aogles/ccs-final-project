@@ -45,7 +45,7 @@ function ConvoyDetail({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    editRecord(records.id);
+    editRecord(recordId);
     setIsEditing(false);
   };
   const deleteRecord = async (id) => {
@@ -64,38 +64,35 @@ function ConvoyDetail({
   const editRecord = async (id) => {
     setIsEditing(true);
     const formData = new FormData();
-
     formData.append("message", newMessage);
     formData.append("title", newTitle);
     if (newImage) {
       formData.append("image", newImage);
     }
     formData.append("convoy", selectedConvoyId);
-    // Use the HTTP PATCH method to update the note
+
     const options = {
       method: "PATCH",
       headers: {
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      // Set the body of the request to the FormData object created earlier
       body: formData,
     };
-    // Send the fetch request to the API endpoint for updating a note
 
-    const response = await fetch(
-      `/api_v1/convoys/records/${recordId}/`,
-      options
-    );
+    const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
 
     if (!response.ok) {
       throw new Error("Failed to edit note");
     }
-    // Copy the current list of notes and add the updated note to it
+
     const data = await response.json();
-    const updatedRecords = [...records];
-    const index = updatedRecords.findIndex((record) => record.id === id);
-    updatedRecords[index] = data;
-    setRecords([...updatedRecords]);
+    const updatedRecords = records.map((record) => {
+      if (record.id === id) {
+        return data;
+      }
+      return record;
+    });
+    setRecords(updatedRecords);
     console.log(data);
   };
 
@@ -126,9 +123,8 @@ function ConvoyDetail({
         {isEditing ? (
           <Form onSubmit={handleSubmit}>
             <Form.Group className="m-1-mb-3" controlId="formBasicEmail">
-              <Form.Label>Enter new text for note </Form.Label>
+              <Form.Label>Enter new text for note</Form.Label>
               <Form.Control
-                id={id}
                 type="textarea"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
@@ -219,8 +215,6 @@ function ConvoyDetail({
 
       {categoryFilters}
       {records && recordsHTML}
-      {deleteRecord}
-      {editRecord}
     </>
   );
 }
