@@ -20,32 +20,115 @@ import {
 function ConvoyDetail({
   selectedConvoyDetail,
   records,
-  record,
-
   selectedConvoyId,
   setRecords,
   id,
+  image,
+  title,
+  message,
   archiveConvoy,
 }) {
-  function NoteCard({ note, deleteRecord, editRecord }) {
-    const [isEditing, setIsEditing] = useState(false);
-    const [newMessage, setNewMessage] = useState(note.message);
-    const [newTitle, setNewTitle] = useState(note.title);
-    const [newImage, setNewImage] = useState(null);
+  const { isStaff } = useContext(AuthContext);
+  console.log(isStaff);
+  const categories = ["Safety", "Vehicle Info", "Convoy Checklist"];
+  const [category, setCategory] = useState(categories[0]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newMessage, setNewMessage] = useState(message);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newImage, setNewImage] = useState(image);
+  const [recordId, setRecordId] = useState("");
+  const [isActive, setIsActive] = useState(true);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      editRecord(note.id);
-      setIsEditing(false);
+  console.log(selectedConvoyId);
+  console.log(newMessage);
+  let recordsHTML;
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    editRecord(records.id);
+    setIsEditing(false);
+  };
+  const deleteRecord = async (id) => {
+    const response = await fetch(`/api_v1/convoys/records/${id}/`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to delete note");
+    }
+    setRecords(records.filter((record) => record.id !== id));
+  };
+
+  const editRecord = async (id) => {
+    setIsEditing(true);
+    const formData = new FormData();
+
+    formData.append("message", newMessage);
+    formData.append("title", newTitle);
+    if (newImage) {
+      formData.append("image", newImage);
+    }
+    formData.append("convoy", selectedConvoyId);
+    // Use the HTTP PATCH method to update the note
+    const options = {
+      method: "PATCH",
+      headers: {
+        "X-CSRFToken": Cookies.get("csrftoken"),
+      },
+      // Set the body of the request to the FormData object created earlier
+      body: formData,
     };
+    // Send the fetch request to the API endpoint for updating a note
 
+    const response = await fetch(
+      `/api_v1/convoys/records/${recordId}/`,
+      options
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to edit note");
+    }
+    // Copy the current list of notes and add the updated note to it
+    const data = await response.json();
+    const updatedRecords = [...records];
+    const index = updatedRecords.findIndex((record) => record.id === id);
+    updatedRecords[index] = data;
+    setRecords([...updatedRecords]);
+    console.log(data);
+  };
+
+  const categoryFilters = categories.map((category) => {
     return (
-      <div key={note.id}>
+      <button
+        key={category}
+        className="category-buttons"
+        id="button"
+        onClick={() => setCategory(category)}
+      >
+        {category}
+      </button>
+    );
+  });
+  if (records === null) {
+    return <div>Loading...</div>;
+  }
+
+  // const recordsHTML = records.map((record) => (
+  //   <Card key={record.id} {...record} deleteRecord={deleteRecord}></Card>
+  // ));
+  console.log(recordId);
+  recordsHTML = records
+    .filter((record) => record.category === category)
+    .map((record) => (
+      <div key={record.id}>
         {isEditing ? (
           <Form onSubmit={handleSubmit}>
             <Form.Group className="m-1-mb-3" controlId="formBasicEmail">
-              <Form.Label>Enter new text for note</Form.Label>
+              <Form.Label>Enter new text for note </Form.Label>
               <Form.Control
+                id={id}
                 type="textarea"
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
@@ -114,105 +197,7 @@ function ConvoyDetail({
           </Card>
         )}
       </div>
-    );
-  }
-
-  const { isStaff } = useContext(AuthContext);
-  console.log(isStaff);
-  const categories = ["Safety", "Vehicle Info", "Convoy Checklist"];
-  const [category, setCategory] = useState(categories[0]);
-  const [recordId, setRecordId] = useState("");
-  const [isActive, setIsActive] = useState(true);
-
-  console.log(selectedConvoyId);
-  console.log(newMessage);
-
-  const deleteRecord = async (id) => {
-    const response = await fetch(`/api_v1/convoys/records/${id}/`, {
-      method: "DELETE",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to delete note");
-    }
-    setRecords(records.filter((record) => record.id !== id));
-  };
-
-  const editRecord = async (id) => {
-    setIsEditing(true);
-    const formData = new FormData();
-    formData.append("message", newMessage);
-    formData.append("title", newTitle);
-    if (newImage) {
-      formData.append("image", newImage);
-    }
-    formData.append("convoy", selectedConvoyId);
-
-    const options = {
-      method: "PATCH",
-      headers: {
-        "X-CSRFToken": Cookies.get("csrftoken"),
-      },
-      body: formData,
-    };
-
-    const response = await fetch(`/api_v1/convoys/records/${id}/`, options);
-
-    if (!response.ok) {
-      throw new Error("Failed to edit note");
-    }
-
-    const data = await response.json();
-    const updatedRecords = records.map((record) => {
-      if (record.id === id) {
-        return data;
-      }
-      return record;
-    });
-    setRecords(updatedRecords);
-    console.log(data);
-  };
-
-  const categoryFilters = categories.map((category) => {
-    return (
-      <button
-        key={category}
-        className="category-buttons"
-        id="button"
-        onClick={() => setCategory(category)}
-      >
-        {category}
-      </button>
-    );
-  });
-  if (records === null) {
-    return <div>Loading...</div>;
-  }
-
-  // const recordsHTML = records.map((record) => (
-  //   <Card key={record.id} {...record} deleteRecord={deleteRecord}></Card>
-  // ));
-  console.log(recordId);
-
-  const recordsHTML = records
-    .filter((record) => record.category === category)
-    .map((record) => (
-      <NoteCard
-        key={record.id}
-        note={record}
-        deleteRecord={deleteRecord}
-        editRecord={editRecord}
-      />
     ));
-
-  // const recordsHTML = records
-  //   .filter((record) => record.category === category)
-  //   .map((record) => (
-  //     <div key={note.id}>
-  //       {isEditing ? (
-
   return (
     <>
       <div id="convoyname">
@@ -234,6 +219,8 @@ function ConvoyDetail({
 
       {categoryFilters}
       {records && recordsHTML}
+      {deleteRecord}
+      {editRecord}
     </>
   );
 }
